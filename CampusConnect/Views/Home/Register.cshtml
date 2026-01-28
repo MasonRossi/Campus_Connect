@@ -1,0 +1,50 @@
+﻿@model CampusConnect.viewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div style="max-width:400px; margin:50px auto; text-align:center; font-family: 'Segoe UI', sans-serif;">
+    <h2 style="font-weight:700; color:#1E73BE; margin-bottom:30px;">Create Your Account</h2>
+
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <p style="color:red; font-weight:600;">@Model.ErrorMessage</p>
+    }
+
+    <form asp-action="Register" method="post" style="display:flex; flex-direction:column; gap:15px;">
+
+        <input type="text" name="DisplayName" placeholder="Username" value="@Model.DisplayName"
+               style="padding:12px; border-radius:25px; border:1px solid #ccc; outline:none; box-shadow:0 2px 5px rgba(0,0,0,0.1);" />
+
+        <input type="email" name="Email" placeholder="Email" value="@Model.Email"
+               style="padding:12px; border-radius:25px; border:1px solid #ccc; outline:none; box-shadow:0 2px 5px rgba(0,0,0,0.1);" />
+
+        <input type="password" name="Password" placeholder="Password"
+               style="padding:12px; border-radius:25px; border:1px solid #ccc; outline:none; box-shadow:0 2px 5px rgba(0,0,0,0.1);" />
+
+        <select name="Role" style="padding:12px; border-radius:25px; border:1px solid #ccc; outline:none; box-shadow:0 2px 5px rgba(0,0,0,0.1);">
+            <option value="">Select Role</option>
+            <option value="Student" selected="@(Model.Role == "Student")">Student</option>
+            <option value="Organizer" selected="@(Model.Role == "Organizer")">Organizer</option>
+        </select>
+
+        <button type="submit"
+                style="padding:12px; border-radius:25px; border:none; background-color:#1E73BE; color:white; font-weight:600; cursor:pointer;
+                       box-shadow:0 4px 8px rgba(0,0,0,0.2); transition: all 0.2s ease;">
+            Register
+        </button>
+    </form>
+</div>
+
+<style>
+    input:focus, select:focus {
+        border-color: #1E73BE;
+        box-shadow: 0 0 8px rgba(30,115,190,0.3);
+    }
+
+    button:hover {
+        background-color: #155a9a;
+        transform: translateY(-2px);
+    }
+</style>

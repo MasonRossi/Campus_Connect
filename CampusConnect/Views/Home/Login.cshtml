@@ -1,0 +1,41 @@
+﻿@model CampusConnect.viewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div style="max-width:400px; margin:50px auto; text-align:center; font-family: 'Segoe UI', sans-serif;">
+    <h2 style="font-weight:700; color:#1E73BE; margin-bottom:30px;">Login</h2>
+
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <p style="color:red; font-weight:600;">@Model.ErrorMessage</p>
+    }
+
+    <form asp-action="Login" method="post" style="display:flex; flex-direction:column; gap:15px;">
+
+        <input type="text" name="DisplayName" placeholder="Username" value="@Model.DisplayName" required
+               style="padding:12px; border-radius:25px; border:1px solid #ccc; outline:none; box-shadow:0 2px 5px rgba(0,0,0,0.1);" />
+
+        <input type="password" name="Password" placeholder="Password" required
+               style="padding:12px; border-radius:25px; border:1px solid #ccc; outline:none; box-shadow:0 2px 5px rgba(0,0,0,0.1);" />
+
+        <button type="submit"
+                style="padding:12px; border-radius:25px; border:none; background-color:#1E73BE; color:white; font-weight:600; cursor:pointer;
+                       box-shadow:0 4px 8px rgba(0,0,0,0.2); transition: all 0.2s ease;">
+            Login
+        </button>
+    </form>
+</div>
+
+<style>
+    input:focus {
+        border-color: #1E73BE;
+        box-shadow: 0 0 8px rgba(30,115,190,0.3);
+    }
+
+    button:hover {
+        background-color: #155a9a;
+        transform: translateY(-2px);
+    }
+</style>

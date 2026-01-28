@@ -1,0 +1,78 @@
+﻿@model CampusConnect.viewModels.ProfileViewModel
+
+@{
+    ViewData["Title"] = "User Profile";
+}
+
+<div style="max-width:900px; margin:50px auto; font-family: 'Segoe UI', sans-serif;">
+
+    <h2 style="font-weight:700; color:#1E73BE; text-align:center; margin-bottom:30px;">
+        User Profile
+    </h2>
+
+    <div style="display:flex; gap:40px; flex-wrap:wrap; justify-content:center;">
+
+        <!-- User Info -->
+        <div style="flex:1; min-width:250px; max-width:350px; padding:20px; border-radius:15px;
+                    border:1px solid #ccc; box-shadow:0 2px 5px rgba(0,0,0,0.1); background-color:white;">
+            <h3 style="color:#1E73BE; margin-bottom:15px;">Account Information</h3>
+            <p><strong>Display Name:</strong> @Model.DisplayName</p>
+            <p><strong>Email:</strong> @Model.Email</p>
+            <p><strong>Role:</strong> @Model.Role</p>
+        </div>
+
+        <!-- Events List -->
+        <div style="flex:2; min-width:400px; max-width:500px; display:flex; flex-direction:column; gap:20px; max-height:500px; overflow-y:auto;">
+
+            <!-- Conditional heading -->
+            <h3 style="color:#1E73BE; text-align:center; margin-bottom:15px;">
+                @(Model.Role == "Student" ? "Events You Have RSVPed To" : "Events You Have Created")
+            </h3>
+
+            @{
+                var eventsToShow = Model.Role == "Student" ? Model.RSVPedEvents : Model.CreatedEvents;
+            }
+
+            @if (!eventsToShow.Any())
+            {
+                <p style="text-align:center; color:#555;">
+                    @(Model.Role == "Student" ? "You haven't RSVPed to any events yet." : "You haven't created any events yet.")
+                </p>
+            }
+            else
+            {
+                @foreach (var ev in eventsToShow)
+                {
+                    <div class="event-card" style="padding:20px; border-radius:15px; border:1px solid #ccc;
+                                box-shadow:0 2px 5px rgba(0,0,0,0.1); display:flex; align-items:center;
+                                justify-content:space-between; background-color:white;">
+
+                        <div style="display:flex; flex-direction:column; gap:5px;">
+                            <h3 class="event-title" style="margin:0; color:#1E73BE;">@ev.Title</h3>
+                            <p style="margin:0; color:#555;"><strong>Date:</strong> @ev.Date.ToString("yyyy-MM-dd")</p>
+                            <p style="margin:0; color:#555;"><strong>Location:</strong> @ev.Location</p>
+                            <p style="margin:0; color:#555;"><strong>Category:</strong> @ev.Category</p>
+                        </div>
+
+                        <a href="@Url.Action("Detail", "Home", new { id = ev.EventId })"
+                           style="display:flex; align-items:center; justify-content:center;
+                                  width:50px; height:50px; border-radius:50%;
+                                  background-color:#1E73BE; color:white; font-size:28px;
+                                  font-weight:bold; text-decoration:none; box-shadow:0 4px 8px rgba(0,0,0,0.2);">
+                            ➜
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+
+    </div>
+</div>
+
+<style>
+    a:hover {
+        background-color: #155a9a;
+        transform: translateX(3px);
+        transition: all 0.2s ease;
+    }
+</style>
