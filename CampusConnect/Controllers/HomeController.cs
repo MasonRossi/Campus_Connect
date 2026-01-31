@@ -3,6 +3,7 @@ using CampusConnect.Models;
 using CampusConnect.viewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace CampusConnect.Controllers
 {
@@ -10,12 +11,28 @@ namespace CampusConnect.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly AppDbContext _context;
+        private readonly PasswordHasher<User> _passwordHasher;
 
         public HomeController(ILogger<HomeController> logger, AppDbContext context)
         {
             _logger = logger;
             _context = context;
+            _passwordHasher = new PasswordHasher<User>();
         }
+
+        public IActionResult TestConnection()
+        {
+            try
+            {
+                var count = _context.Users.Count();
+                return Content($"Connected! Users count: {count}");
+            }
+            catch (Exception ex)
+            {
+                return Content($"Failed: {ex.Message}");
+            }
+        }
+
 
         // ------------------------------
         // LOGIN
@@ -30,13 +47,15 @@ namespace CampusConnect.Controllers
         [HttpPost]
         public IActionResult Login(LoginViewModel model)
         {
-            var user = _context.Users
-                .FirstOrDefault(u => u.DisplayName == model.DisplayName && u.Password == model.Password);
-
+            var user = _context.Users.FirstOrDefault(u => u.DisplayName == model.DisplayName);
             if (user != null)
             {
-                SetUserSession(user);
-                return RedirectToAction("Home");
+                var result = _passwordHasher.VerifyHashedPassword(user, user.Password, model.Password);
+                if (result == PasswordVerificationResult.Success)
+                {
+                    SetUserSession(user);
+                    return RedirectToAction("Home");
+                }
             }
 
             model.ErrorMessage = "Username or password not found.";
@@ -62,12 +81,14 @@ namespace CampusConnect.Controllers
                 string.IsNullOrWhiteSpace(model.Role))
             {
                 model.ErrorMessage = "Please fill in all required fields.";
+                SetHeaderButtons();
                 return View(model);
             }
 
             if (_context.Users.Any(u => u.DisplayName == model.DisplayName))
             {
                 model.ErrorMessage = "Username already taken.";
+                SetHeaderButtons();
                 return View(model);
             }
 
@@ -76,9 +97,11 @@ namespace CampusConnect.Controllers
                 UserId = Guid.NewGuid().ToString(),
                 DisplayName = model.DisplayName,
                 Email = model.Email,
-                Password = model.Password,
                 Role = model.Role
             };
+
+            // Hash the password
+            newUser.Password = _passwordHasher.HashPassword(newUser, model.Password);
 
             _context.Users.Add(newUser);
             _context.SaveChanges();
@@ -111,6 +134,7 @@ namespace CampusConnect.Controllers
         public async Task<IActionResult> List()
         {
             var events = await _context.Events
+                .Include(e => e.Location)
                 .OrderBy(e => e.Date)
                 .ToListAsync();
 
@@ -127,7 +151,11 @@ namespace CampusConnect.Controllers
             if (string.IsNullOrEmpty(userId))
                 return RedirectToAction("Login");
 
-            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+            var user = _context.Users
+                .Include(u => u.RSVPs)
+                .Include(u => u.CreatedEvents)
+                .FirstOrDefault(u => u.UserId == userId);
+
             if (user == null)
                 return RedirectToAction("Login");
 
@@ -140,21 +168,16 @@ namespace CampusConnect.Controllers
 
             if (user.Role == "Student")
             {
-                // Get RSVPed events
-                model.RSVPedEvents = _context.RSVPs
-                    .Where(r => r.UserId == userId)
-                    .Join(_context.Events,
-                          r => r.EventId,
-                          e => e.EventId,
-                          (r, e) => e)
+                model.RSVPedEvents = user.RSVPs
+                    .Select(r => _context.Events.Include(e => e.Location)
+                                                .FirstOrDefault(e => e.EventId == r.EventId))
+                    .Where(e => e != null)
                     .OrderBy(e => e.Date)
                     .ToList();
             }
             else if (user.Role == "Organizer")
             {
-                // Get events created by the organizer
-                model.CreatedEvents = _context.Events
-                    .Where(e => e.CreatedBy == userId)
+                model.CreatedEvents = user.CreatedEvents
                     .OrderBy(e => e.Date)
                     .ToList();
             }
@@ -163,38 +186,34 @@ namespace CampusConnect.Controllers
             return View(model);
         }
 
-
         // ------------------------------
         // EVENT DETAILS
         // ------------------------------
         public IActionResult Detail(string id)
         {
             if (string.IsNullOrEmpty(id))
-                return RedirectToAction("List"); // No event ID provided
+                return RedirectToAction("List");
 
-            var ev = _context.Events.FirstOrDefault(e => e.EventId == id);
+            var ev = _context.Events
+                .Include(e => e.Location)
+                .Include(e => e.CreatedBy)
+                .Include(e => e.RSVPs)
+                .FirstOrDefault(e => e.EventId == id);
+
             if (ev == null)
-                return RedirectToAction("List"); // Event not found
-
-            var creator = _context.Users.FirstOrDefault(u => u.UserId == ev.CreatedBy);
-            string creatorDisplayName = creator != null ? creator.DisplayName : "Unknown";
+                return RedirectToAction("List");
 
             var userId = HttpContext.Session.GetString("UserId");
             var role = HttpContext.Session.GetString("Role");
 
-            bool canEdit = !string.IsNullOrEmpty(userId) && ev.CreatedBy == userId;
+            bool canEdit = !string.IsNullOrEmpty(userId) && ev.CreatedById == userId;
             bool canRSVP = !canEdit && !string.IsNullOrEmpty(userId) && role == "Student";
-
-            bool isRSVPed = false;
-            if (!string.IsNullOrEmpty(userId))
-            {
-                isRSVPed = _context.RSVPs.Any(r => r.EventId == id && r.UserId == userId);
-            }
+            bool isRSVPed = !string.IsNullOrEmpty(userId) && ev.RSVPs.Any(r => r.UserId == userId);
 
             var model = new EventDetailViewModel
             {
                 Event = ev,
-                CreatorDisplayName = creatorDisplayName,
+                CreatorDisplayName = ev.CreatedBy?.DisplayName ?? "Unknown",
                 CanEdit = canEdit,
                 CanRSVP = canRSVP,
                 IsRSVPed = isRSVPed
@@ -212,12 +231,12 @@ namespace CampusConnect.Controllers
             SetHeaderButtons();
             if (string.IsNullOrEmpty(id))
                 return View(new Event());
-            else
-            {
-                var ev = _context.Events.FirstOrDefault(e => e.EventId == id);
-                if (ev == null) return RedirectToAction("List");
-                return View(ev);
-            }
+
+            var ev = _context.Events.Include(e => e.Location)
+                                    .FirstOrDefault(e => e.EventId == id);
+            if (ev == null) return RedirectToAction("List");
+
+            return View(ev);
         }
 
         [HttpPost]
@@ -231,11 +250,10 @@ namespace CampusConnect.Controllers
 
             if (string.IsNullOrWhiteSpace(model.Title) ||
                 string.IsNullOrWhiteSpace(model.Description) ||
-                string.IsNullOrWhiteSpace(model.Location) ||
-                string.IsNullOrWhiteSpace(model.Category) ||
-                model.Date == default)
+                model.Date == default ||
+                string.IsNullOrEmpty(model.Category))
             {
-                ViewBag.ErrorMessage = "Please fill in all fields.";
+                ViewBag.ErrorMessage = "Please fill in all required fields.";
                 return View("Create", model);
             }
 
@@ -243,21 +261,21 @@ namespace CampusConnect.Controllers
             {
                 // New Event
                 model.EventId = Guid.NewGuid().ToString();
-                model.CreatedBy = userId;
-                model.RSVPCount = 0;
+                model.CreatedById = userId;
                 _context.Events.Add(model);
             }
             else
             {
                 // Edit existing event
-                var ev = _context.Events.FirstOrDefault(e => e.EventId == model.EventId);
+                var ev = _context.Events.Include(e => e.Location)
+                                        .FirstOrDefault(e => e.EventId == model.EventId);
                 if (ev == null) return RedirectToAction("List");
 
                 ev.Title = model.Title;
                 ev.Description = model.Description;
-                ev.Location = model.Location;
                 ev.Date = model.Date;
                 ev.Category = model.Category;
+                ev.LocationId = model.LocationId;
             }
 
             _context.SaveChanges();
@@ -279,33 +297,26 @@ namespace CampusConnect.Controllers
                 return RedirectToAction("Detail", new { id = EventId });
             }
 
-            var existingRSVP = _context.RSVPs.FirstOrDefault(r => r.UserId == userId && r.EventId == EventId);
-            var ev = _context.Events.FirstOrDefault(e => e.EventId == EventId);
+            var ev = _context.Events.Include(e => e.RSVPs)
+                                    .FirstOrDefault(e => e.EventId == EventId);
+            if (ev == null) return RedirectToAction("List");
 
-            if (ev == null)
-            {
-                TempData["RSVPMessage"] = "Event not found.";
-                return RedirectToAction("List");
-            }
+            var existingRSVP = ev.RSVPs.FirstOrDefault(r => r.UserId == userId);
 
             if (existingRSVP != null)
             {
-                // Cancel RSVP
                 _context.RSVPs.Remove(existingRSVP);
-                if (ev.RSVPCount > 0) ev.RSVPCount--;
                 TempData["RSVPMessage"] = "Your RSVP has been canceled.";
             }
             else
             {
-                // Add RSVP
                 var newRSVP = new RSVP
                 {
                     RSVPId = Guid.NewGuid().ToString(),
-                    UserId = userId,
-                    EventId = EventId
+                    EventId = EventId,
+                    UserId = userId
                 };
                 _context.RSVPs.Add(newRSVP);
-                ev.RSVPCount++;
                 TempData["RSVPMessage"] = "You have RSVPed to this event.";
             }
 
@@ -325,20 +336,17 @@ namespace CampusConnect.Controllers
             if (string.IsNullOrEmpty(EventId) || string.IsNullOrEmpty(userId) || role != "Organizer")
                 return RedirectToAction("List");
 
-            var ev = _context.Events.FirstOrDefault(e => e.EventId == EventId);
+            var ev = _context.Events.Include(e => e.RSVPs)
+                                    .FirstOrDefault(e => e.EventId == EventId);
 
-            if (ev == null || ev.CreatedBy != userId)
-                return RedirectToAction("List"); // Can't delete events not created by this user
+            if (ev == null || ev.CreatedById != userId)
+                return RedirectToAction("List");
 
-            // Remove associated RSVPs first
-            var rsvps = _context.RSVPs.Where(r => r.EventId == EventId).ToList();
-            _context.RSVPs.RemoveRange(rsvps);
-
-            // Remove the event
+            _context.RSVPs.RemoveRange(ev.RSVPs);
             _context.Events.Remove(ev);
             _context.SaveChanges();
 
-            return RedirectToAction("List"); // Redirect back to events list
+            return RedirectToAction("List");
         }
 
         // ------------------------------
@@ -365,8 +373,6 @@ namespace CampusConnect.Controllers
                     new { Text = "Create Event", Url = "/Home/Create" },
                     new { Text = "Events", Url = "/Home/List" },
                     new { Text = "Profile", Url = "/Home/Profile" },
-                    new { Text = "About", Url = "#" },
-                    new { Text = "Contact", Url = "#" },
                     new { Text = "Logout", Url = "/Home/Logout" }
                 });
             }
@@ -377,8 +383,6 @@ namespace CampusConnect.Controllers
                     new { Text = "Home", Url = "/Home" },
                     new { Text = "Events", Url = "/Home/List" },
                     new { Text = "Profile", Url = "/Home/Profile" },
-                    new { Text = "About", Url = "#" },
-                    new { Text = "Contact", Url = "#" },
                     new { Text = "Logout", Url = "/Home/Logout" }
                 });
             }
@@ -388,8 +392,6 @@ namespace CampusConnect.Controllers
                 {
                     new { Text = "Home", Url = "/Home" },
                     new { Text = "Events", Url = "/Home/List" },
-                    new { Text = "About", Url = "#" },
-                    new { Text = "Contact", Url = "#" },
                     new { Text = "Login", Url = "/Home/Login" },
                     new { Text = "Register", Url = "/Home/Register" }
                 });

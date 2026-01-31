@@ -3,6 +3,7 @@ using System;
 using CampusConnect.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -15,543 +16,164 @@ namespace CampusConnect.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.22");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "8.0.22")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("CampusConnect.Models.Event", b =>
                 {
                     b.Property<string>("EventId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Category")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CreatedBy")
+                    b.Property<string>("CreatedById")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Location")
+                    b.Property<string>("LocationId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("RSVPCount")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("EventId");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("LocationId");
 
                     b.ToTable("Events");
 
                     b.HasData(
                         new
                         {
-                            EventId = "e1",
-                            Category = "Fair",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2025, 12, 15, 12, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Meet all clubs on campus!",
-                            Location = "Conestoga College",
-                            RSVPCount = 0,
-                            Title = "Campus Club Fair"
+                            EventId = "event1",
+                            Category = "Social",
+                            CreatedById = "org1",
+                            Date = new DateTime(2026, 2, 7, 9, 7, 9, 700, DateTimeKind.Utc).AddTicks(5303),
+                            Description = "Welcome new students! Meet your peers and faculty.",
+                            LocationId = "loc1",
+                            Title = "Orientation Day"
                         },
                         new
                         {
-                            EventId = "e2",
-                            Category = "Workshop",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2025, 12, 16, 14, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Improve your math skills",
-                            Location = "Ontario Tech University",
-                            RSVPCount = 0,
-                            Title = "Math Workshop"
+                            EventId = "event2",
+                            Category = "Educational",
+                            CreatedById = "org1",
+                            Date = new DateTime(2026, 2, 10, 9, 7, 9, 700, DateTimeKind.Utc).AddTicks(5314),
+                            Description = "Learn to code in C# and build small projects.",
+                            LocationId = "loc2",
+                            Title = "Coding Workshop"
+                        });
+                });
+
+            modelBuilder.Entity("CampusConnect.Models.Location", b =>
+                {
+                    b.Property<string>("LocationId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("LocationId");
+
+                    b.ToTable("Locations");
+
+                    b.HasData(
+                        new
+                        {
+                            LocationId = "loc1",
+                            Description = "The large auditorium in the main building.",
+                            Name = "Main Auditorium"
                         },
                         new
                         {
-                            EventId = "e3",
-                            Category = "Fair",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2025, 12, 17, 10, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Showcase science projects",
-                            Location = "Conestoga College",
-                            RSVPCount = 0,
-                            Title = "Science Fair"
-                        },
-                        new
-                        {
-                            EventId = "e4",
-                            Category = "Exhibition",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2025, 12, 18, 16, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Display of student artworks",
-                            Location = "Sheridan College",
-                            RSVPCount = 0,
-                            Title = "Art Exhibition"
-                        },
-                        new
-                        {
-                            EventId = "e5",
-                            Category = "Competition",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2025, 12, 19, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "24-hour coding competition",
-                            Location = "Ontario Tech University",
-                            RSVPCount = 0,
-                            Title = "Coding Hackathon"
-                        },
-                        new
-                        {
-                            EventId = "e6",
-                            Category = "Concert",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2025, 12, 20, 19, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Live student bands",
-                            Location = "Sheridan College",
-                            RSVPCount = 0,
-                            Title = "Music Concert"
-                        },
-                        new
-                        {
-                            EventId = "e7",
-                            Category = "Theatre",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2025, 12, 21, 18, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "School theatre production",
-                            Location = "Conestoga College",
-                            RSVPCount = 0,
-                            Title = "Drama Play"
-                        },
-                        new
-                        {
-                            EventId = "e8",
-                            Category = "Workshop",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2025, 12, 22, 14, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Build and program robots",
-                            Location = "Ontario Tech University",
-                            RSVPCount = 0,
-                            Title = "Robotics Workshop"
-                        },
-                        new
-                        {
-                            EventId = "e9",
-                            Category = "Competition",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2025, 12, 23, 12, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Capture campus life",
-                            Location = "Sheridan College",
-                            RSVPCount = 0,
-                            Title = "Photography Contest"
-                        },
-                        new
-                        {
-                            EventId = "e10",
-                            Category = "Sports",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2025, 12, 24, 10, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Various sporting events",
-                            Location = "Conestoga College",
-                            RSVPCount = 0,
-                            Title = "Sports Day"
-                        },
-                        new
-                        {
-                            EventId = "e11",
-                            Category = "Fair",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2025, 12, 25, 11, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Meet potential employers",
-                            Location = "Ontario Tech University",
-                            RSVPCount = 0,
-                            Title = "Career Fair"
-                        },
-                        new
-                        {
-                            EventId = "e12",
-                            Category = "Competition",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2025, 12, 26, 13, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Test your chess skills",
-                            Location = "Sheridan College",
-                            RSVPCount = 0,
-                            Title = "Chess Tournament"
-                        },
-                        new
-                        {
-                            EventId = "e13",
-                            Category = "Seminar",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2025, 12, 27, 15, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Learn about sustainability",
-                            Location = "Conestoga College",
-                            RSVPCount = 0,
-                            Title = "Environmental Seminar"
-                        },
-                        new
-                        {
-                            EventId = "e14",
-                            Category = "Fair",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2025, 12, 28, 12, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Find volunteering opportunities",
-                            Location = "Ontario Tech University",
-                            RSVPCount = 0,
-                            Title = "Volunteer Fair"
-                        },
-                        new
-                        {
-                            EventId = "e15",
-                            Category = "Workshop",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2025, 12, 29, 17, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Practice foreign languages",
-                            Location = "Sheridan College",
-                            RSVPCount = 0,
-                            Title = "Language Exchange"
-                        },
-                        new
-                        {
-                            EventId = "e16",
-                            Category = "Workshop",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2025, 12, 30, 14, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Learn new recipes",
-                            Location = "Conestoga College",
-                            RSVPCount = 0,
-                            Title = "Cooking Class"
-                        },
-                        new
-                        {
-                            EventId = "e17",
-                            Category = "Seminar",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2025, 12, 31, 16, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Latest trends in technology",
-                            Location = "Ontario Tech University",
-                            RSVPCount = 0,
-                            Title = "Tech Talk"
-                        },
-                        new
-                        {
-                            EventId = "e18",
-                            Category = "Exhibition",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2026, 1, 1, 18, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Student short films",
-                            Location = "Sheridan College",
-                            RSVPCount = 0,
-                            Title = "Film Screening"
-                        },
-                        new
-                        {
-                            EventId = "e19",
-                            Category = "Workshop",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2026, 1, 2, 15, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Learn new dance routines",
-                            Location = "Conestoga College",
-                            RSVPCount = 0,
-                            Title = "Dance Workshop"
-                        },
-                        new
-                        {
-                            EventId = "e20",
-                            Category = "Party",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2026, 1, 3, 20, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Celebrate the new year!",
-                            Location = "Ontario Tech University",
-                            RSVPCount = 0,
-                            Title = "New Year Party"
-                        },
-                        new
-                        {
-                            EventId = "e21",
-                            Category = "Competition",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2026, 1, 4, 10, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Test your coding skills in a fun environment",
-                            Location = "Sheridan College",
-                            RSVPCount = 0,
-                            Title = "Winter Coding Challenge"
-                        },
-                        new
-                        {
-                            EventId = "e22",
-                            Category = "Wellness",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2026, 1, 5, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Relax and stretch with fellow students",
-                            Location = "Conestoga College",
-                            RSVPCount = 0,
-                            Title = "Campus Yoga"
-                        },
-                        new
-                        {
-                            EventId = "e23",
-                            Category = "Workshop",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2026, 1, 6, 14, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Explore campus and take photos",
-                            Location = "Ontario Tech University",
-                            RSVPCount = 0,
-                            Title = "Photography Walk"
-                        },
-                        new
-                        {
-                            EventId = "e24",
-                            Category = "Concert",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2026, 1, 7, 19, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Showcase your talent",
-                            Location = "Sheridan College",
-                            RSVPCount = 0,
-                            Title = "Student Open Mic"
-                        },
-                        new
-                        {
-                            EventId = "e25",
-                            Category = "Competition",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2026, 1, 8, 13, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Battle your friends in popular games",
-                            Location = "Conestoga College",
-                            RSVPCount = 0,
-                            Title = "Gaming Tournament"
-                        },
-                        new
-                        {
-                            EventId = "e26",
-                            Category = "Seminar",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2026, 1, 9, 15, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Learn about latest discoveries",
-                            Location = "Ontario Tech University",
-                            RSVPCount = 0,
-                            Title = "Science Seminar"
-                        },
-                        new
-                        {
-                            EventId = "e27",
-                            Category = "Exhibition",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2026, 1, 10, 16, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "See winter-themed artworks",
-                            Location = "Sheridan College",
-                            RSVPCount = 0,
-                            Title = "Winter Art Show"
-                        },
-                        new
-                        {
-                            EventId = "e28",
-                            Category = "Seminar",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2026, 1, 11, 11, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Learn tips from successful founders",
-                            Location = "Conestoga College",
-                            RSVPCount = 0,
-                            Title = "Entrepreneurship Talk"
-                        },
-                        new
-                        {
-                            EventId = "e29",
-                            Category = "Exhibition",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2026, 1, 12, 18, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Student-made short films",
-                            Location = "Ontario Tech University",
-                            RSVPCount = 0,
-                            Title = "Campus Film Festival"
-                        },
-                        new
-                        {
-                            EventId = "e30",
-                            Category = "Party",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2026, 1, 13, 20, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Celebrate winter with music and dance",
-                            Location = "Sheridan College",
-                            RSVPCount = 0,
-                            Title = "Winter Dance Party"
-                        },
-                        new
-                        {
-                            EventId = "e31",
-                            Category = "Competition",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2026, 1, 14, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Collaborate and code in teams",
-                            Location = "Conestoga College",
-                            RSVPCount = 0,
-                            Title = "Tech Hackathon"
-                        },
-                        new
-                        {
-                            EventId = "e32",
-                            Category = "Concert",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2026, 1, 15, 19, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Enjoy performances by the student choir",
-                            Location = "Ontario Tech University",
-                            RSVPCount = 0,
-                            Title = "Student Choir Concert"
-                        },
-                        new
-                        {
-                            EventId = "e33",
-                            Category = "Competition",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2026, 1, 16, 14, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Debate on current topics",
-                            Location = "Sheridan College",
-                            RSVPCount = 0,
-                            Title = "Campus Debate"
-                        },
-                        new
-                        {
-                            EventId = "e34",
-                            Category = "Workshop",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2026, 1, 17, 16, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Learn winter recipes",
-                            Location = "Conestoga College",
-                            RSVPCount = 0,
-                            Title = "Cooking Workshop"
-                        },
-                        new
-                        {
-                            EventId = "e35",
-                            Category = "Concert",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2026, 1, 18, 18, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Show off your skills",
-                            Location = "Ontario Tech University",
-                            RSVPCount = 0,
-                            Title = "Campus Talent Show"
-                        },
-                        new
-                        {
-                            EventId = "e36",
-                            Category = "Fair",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2026, 1, 19, 12, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Learn about health and wellness",
-                            Location = "Sheridan College",
-                            RSVPCount = 0,
-                            Title = "Winter Wellness Fair"
-                        },
-                        new
-                        {
-                            EventId = "e37",
-                            Category = "Exhibition",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2026, 1, 20, 17, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Campus photography showcase",
-                            Location = "Conestoga College",
-                            RSVPCount = 0,
-                            Title = "Photography Exhibition"
-                        },
-                        new
-                        {
-                            EventId = "e38",
-                            Category = "Workshop",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2026, 1, 21, 10, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Learn coding skills fast",
-                            Location = "Ontario Tech University",
-                            RSVPCount = 0,
-                            Title = "Winter Coding Bootcamp"
-                        },
-                        new
-                        {
-                            EventId = "e39",
-                            Category = "Party",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2026, 1, 22, 20, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Formal winter celebration",
-                            Location = "Sheridan College",
-                            RSVPCount = 0,
-                            Title = "Student Winter Gala"
-                        },
-                        new
-                        {
-                            EventId = "e40",
-                            Category = "Workshop",
-                            CreatedBy = "u2",
-                            Date = new DateTime(2026, 1, 23, 14, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Learn business and startup skills",
-                            Location = "Conestoga College",
-                            RSVPCount = 0,
-                            Title = "Entrepreneur Workshop"
+                            LocationId = "loc2",
+                            Description = "Central hub for student activities.",
+                            Name = "Student Center"
                         });
                 });
 
             modelBuilder.Entity("CampusConnect.Models.RSVP", b =>
                 {
                     b.Property<string>("RSVPId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("EventId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Timestamp")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("RSVPId");
+
+                    b.HasIndex("EventId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("RSVPs");
 
                     b.HasData(
                         new
                         {
-                            RSVPId = "r1",
-                            EventId = "e1",
-                            Timestamp = new DateTime(2025, 12, 11, 3, 46, 29, 607, DateTimeKind.Local).AddTicks(5314),
-                            UserId = "u1"
+                            RSVPId = "rsvp1",
+                            EventId = "event1",
+                            Timestamp = new DateTime(2026, 1, 31, 9, 7, 9, 700, DateTimeKind.Utc).AddTicks(5342),
+                            UserId = "user1"
                         },
                         new
                         {
-                            RSVPId = "r2",
-                            EventId = "e2",
-                            Timestamp = new DateTime(2025, 12, 11, 3, 46, 29, 607, DateTimeKind.Local).AddTicks(5365),
-                            UserId = "u1"
+                            RSVPId = "rsvp2",
+                            EventId = "event2",
+                            Timestamp = new DateTime(2026, 1, 31, 9, 7, 9, 700, DateTimeKind.Utc).AddTicks(5348),
+                            UserId = "user2"
                         });
                 });
 
             modelBuilder.Entity("CampusConnect.Models.User", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("DisplayName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Role")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId");
 
@@ -560,20 +182,83 @@ namespace CampusConnect.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "u1",
-                            DisplayName = "John Student",
-                            Email = "student@example.com",
-                            Password = "123stu",
+                            UserId = "user1",
+                            DisplayName = "Alice",
+                            Email = "alice@student.edu",
+                            Password = "password1",
                             Role = "Student"
                         },
                         new
                         {
-                            UserId = "u2",
-                            DisplayName = "Jane Organizer",
-                            Email = "organizer@example.com",
-                            Password = "123org",
+                            UserId = "user2",
+                            DisplayName = "Bob",
+                            Email = "bob@student.edu",
+                            Password = "password2",
+                            Role = "Student"
+                        },
+                        new
+                        {
+                            UserId = "org1",
+                            DisplayName = "Prof. Smith",
+                            Email = "smith@campus.edu",
+                            Password = "password3",
                             Role = "Organizer"
                         });
+                });
+
+            modelBuilder.Entity("CampusConnect.Models.Event", b =>
+                {
+                    b.HasOne("CampusConnect.Models.User", "CreatedBy")
+                        .WithMany("CreatedEvents")
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CampusConnect.Models.Location", "Location")
+                        .WithMany("Events")
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CreatedBy");
+
+                    b.Navigation("Location");
+                });
+
+            modelBuilder.Entity("CampusConnect.Models.RSVP", b =>
+                {
+                    b.HasOne("CampusConnect.Models.Event", "Event")
+                        .WithMany("RSVPs")
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CampusConnect.Models.User", "User")
+                        .WithMany("RSVPs")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Event");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("CampusConnect.Models.Event", b =>
+                {
+                    b.Navigation("RSVPs");
+                });
+
+            modelBuilder.Entity("CampusConnect.Models.Location", b =>
+                {
+                    b.Navigation("Events");
+                });
+
+            modelBuilder.Entity("CampusConnect.Models.User", b =>
+                {
+                    b.Navigation("CreatedEvents");
+
+                    b.Navigation("RSVPs");
                 });
 #pragma warning restore 612, 618
         }

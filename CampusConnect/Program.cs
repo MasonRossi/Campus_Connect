@@ -6,9 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container BEFORE building
 builder.Services.AddControllersWithViews();
 
-// Add DbContext for SQLite
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 // Add session services
 builder.Services.AddDistributedMemoryCache(); // required for session
