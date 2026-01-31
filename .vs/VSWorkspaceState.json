@@ -2,9 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\CampusConnect",
-    "\\CampusConnect\\Views",
+    "\\CampusConnect\\Data",
+    "\\CampusConnect\\Repositories",
     "\\CampusConnect\\Views\\Home"
   ],
-  "SelectedNode": "\\CampusConnect\\Views\\Home\\Home.cshtml",
+  "SelectedNode": "\\CampusConnect\\Data\\AppDbContext.cs",
   "PreviewInSolutionExplorer": false
 }

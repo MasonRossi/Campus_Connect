@@ -1,38 +1,23 @@
-using CampusConnect.Data;
+using CampusConnect.Data.Repositories;
 using CampusConnect.Models;
 using CampusConnect.viewModels;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CampusConnect.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly AppDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly PasswordHasher<User> _passwordHasher;
+        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger, AppDbContext context)
+        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
         {
             _logger = logger;
-            _context = context;
+            _unitOfWork = unitOfWork;
             _passwordHasher = new PasswordHasher<User>();
         }
-
-        public IActionResult TestConnection()
-        {
-            try
-            {
-                var count = _context.Users.Count();
-                return Content($"Connected! Users count: {count}");
-            }
-            catch (Exception ex)
-            {
-                return Content($"Failed: {ex.Message}");
-            }
-        }
-
 
         // ------------------------------
         // LOGIN
@@ -45,9 +30,9 @@ namespace CampusConnect.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            var user = _context.Users.FirstOrDefault(u => u.DisplayName == model.DisplayName);
+            var user = await _unitOfWork.Users.GetByDisplayNameAsync(model.DisplayName);
             if (user != null)
             {
                 var result = _passwordHasher.VerifyHashedPassword(user, user.Password, model.Password);
@@ -74,7 +59,7 @@ namespace CampusConnect.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (string.IsNullOrWhiteSpace(model.DisplayName) ||
                 string.IsNullOrWhiteSpace(model.Password) ||
@@ -85,7 +70,7 @@ namespace CampusConnect.Controllers
                 return View(model);
             }
 
-            if (_context.Users.Any(u => u.DisplayName == model.DisplayName))
+            if (await _unitOfWork.Users.ExistsByDisplayNameAsync(model.DisplayName))
             {
                 model.ErrorMessage = "Username already taken.";
                 SetHeaderButtons();
@@ -100,11 +85,10 @@ namespace CampusConnect.Controllers
                 Role = model.Role
             };
 
-            // Hash the password
             newUser.Password = _passwordHasher.HashPassword(newUser, model.Password);
 
-            _context.Users.Add(newUser);
-            _context.SaveChanges();
+            await _unitOfWork.Users.AddAsync(newUser);
+            await _unitOfWork.CompleteAsync();
 
             SetUserSession(newUser);
             return RedirectToAction("Home");
@@ -133,31 +117,21 @@ namespace CampusConnect.Controllers
         // ------------------------------
         public async Task<IActionResult> List()
         {
-            var events = await _context.Events
-                .Include(e => e.Location)
-                .OrderBy(e => e.Date)
-                .ToListAsync();
-
+            var events = await _unitOfWork.Events.GetAllWithLocationAsync();
             SetHeaderButtons();
-            return View(events);
+            return View(events.OrderBy(e => e.Date));
         }
 
         // ------------------------------
         // PROFILE
         // ------------------------------
-        public IActionResult Profile()
+        public async Task<IActionResult> Profile()
         {
             var userId = HttpContext.Session.GetString("UserId");
-            if (string.IsNullOrEmpty(userId))
-                return RedirectToAction("Login");
+            if (string.IsNullOrEmpty(userId)) return RedirectToAction("Login");
 
-            var user = _context.Users
-                .Include(u => u.RSVPs)
-                .Include(u => u.CreatedEvents)
-                .FirstOrDefault(u => u.UserId == userId);
-
-            if (user == null)
-                return RedirectToAction("Login");
+            var user = await _unitOfWork.Users.GetByIdWithRSVPsAndCreatedEventsAsync(userId);
+            if (user == null) return RedirectToAction("Login");
 
             var model = new ProfileViewModel
             {
@@ -168,18 +142,17 @@ namespace CampusConnect.Controllers
 
             if (user.Role == "Student")
             {
-                model.RSVPedEvents = user.RSVPs
-                    .Select(r => _context.Events.Include(e => e.Location)
-                                                .FirstOrDefault(e => e.EventId == r.EventId))
-                    .Where(e => e != null)
-                    .OrderBy(e => e.Date)
-                    .ToList();
+                var events = new List<Event>();
+                foreach (var rsvp in user.RSVPs)
+                {
+                    var ev = await _unitOfWork.Events.GetByIdWithLocationAsync(rsvp.EventId);
+                    if (ev != null) events.Add(ev);
+                }
+                model.RSVPedEvents = events.OrderBy(e => e.Date).ToList();
             }
             else if (user.Role == "Organizer")
             {
-                model.CreatedEvents = user.CreatedEvents
-                    .OrderBy(e => e.Date)
-                    .ToList();
+                model.CreatedEvents = user.CreatedEvents.OrderBy(e => e.Date).ToList();
             }
 
             SetHeaderButtons();
@@ -189,34 +162,23 @@ namespace CampusConnect.Controllers
         // ------------------------------
         // EVENT DETAILS
         // ------------------------------
-        public IActionResult Detail(string id)
+        public async Task<IActionResult> Detail(string id)
         {
-            if (string.IsNullOrEmpty(id))
-                return RedirectToAction("List");
+            if (string.IsNullOrEmpty(id)) return RedirectToAction("List");
 
-            var ev = _context.Events
-                .Include(e => e.Location)
-                .Include(e => e.CreatedBy)
-                .Include(e => e.RSVPs)
-                .FirstOrDefault(e => e.EventId == id);
-
-            if (ev == null)
-                return RedirectToAction("List");
+            var ev = await _unitOfWork.Events.GetByIdWithAllRelationsAsync(id);
+            if (ev == null) return RedirectToAction("List");
 
             var userId = HttpContext.Session.GetString("UserId");
             var role = HttpContext.Session.GetString("Role");
-
-            bool canEdit = !string.IsNullOrEmpty(userId) && ev.CreatedById == userId;
-            bool canRSVP = !canEdit && !string.IsNullOrEmpty(userId) && role == "Student";
-            bool isRSVPed = !string.IsNullOrEmpty(userId) && ev.RSVPs.Any(r => r.UserId == userId);
 
             var model = new EventDetailViewModel
             {
                 Event = ev,
                 CreatorDisplayName = ev.CreatedBy?.DisplayName ?? "Unknown",
-                CanEdit = canEdit,
-                CanRSVP = canRSVP,
-                IsRSVPed = isRSVPed
+                CanEdit = !string.IsNullOrEmpty(userId) && ev.CreatedById == userId,
+                CanRSVP = !string.IsNullOrEmpty(userId) && role == "Student" && ev.CreatedById != userId,
+                IsRSVPed = !string.IsNullOrEmpty(userId) && ev.RSVPs.Any(r => r.UserId == userId)
             };
 
             SetHeaderButtons();
@@ -224,23 +186,21 @@ namespace CampusConnect.Controllers
         }
 
         // ------------------------------
-        // CREATE/EDIT EVENT
+        // CREATE / EDIT EVENT
         // ------------------------------
-        public IActionResult Create(string id = null)
+        public async Task<IActionResult> Create(string id = null)
         {
             SetHeaderButtons();
-            if (string.IsNullOrEmpty(id))
-                return View(new Event());
+            if (string.IsNullOrEmpty(id)) return View(new Event());
 
-            var ev = _context.Events.Include(e => e.Location)
-                                    .FirstOrDefault(e => e.EventId == id);
+            var ev = await _unitOfWork.Events.GetByIdWithLocationAsync(id);
             if (ev == null) return RedirectToAction("List");
 
             return View(ev);
         }
 
         [HttpPost]
-        public IActionResult SaveEvent(Event model)
+        public async Task<IActionResult> SaveEvent(Event model)
         {
             var userId = HttpContext.Session.GetString("UserId");
             var role = HttpContext.Session.GetString("Role");
@@ -259,16 +219,13 @@ namespace CampusConnect.Controllers
 
             if (string.IsNullOrEmpty(model.EventId))
             {
-                // New Event
                 model.EventId = Guid.NewGuid().ToString();
                 model.CreatedById = userId;
-                _context.Events.Add(model);
+                await _unitOfWork.Events.AddAsync(model);
             }
             else
             {
-                // Edit existing event
-                var ev = _context.Events.Include(e => e.Location)
-                                        .FirstOrDefault(e => e.EventId == model.EventId);
+                var ev = await _unitOfWork.Events.GetByIdWithLocationAsync(model.EventId);
                 if (ev == null) return RedirectToAction("List");
 
                 ev.Title = model.Title;
@@ -278,7 +235,7 @@ namespace CampusConnect.Controllers
                 ev.LocationId = model.LocationId;
             }
 
-            _context.SaveChanges();
+            await _unitOfWork.CompleteAsync();
             return RedirectToAction("Detail", new { id = model.EventId });
         }
 
@@ -286,7 +243,7 @@ namespace CampusConnect.Controllers
         // RSVP / CANCEL RSVP
         // ------------------------------
         [HttpPost]
-        public IActionResult RSVP(string EventId)
+        public async Task<IActionResult> RSVP(string EventId)
         {
             var userId = HttpContext.Session.GetString("UserId");
             var role = HttpContext.Session.GetString("Role");
@@ -297,15 +254,13 @@ namespace CampusConnect.Controllers
                 return RedirectToAction("Detail", new { id = EventId });
             }
 
-            var ev = _context.Events.Include(e => e.RSVPs)
-                                    .FirstOrDefault(e => e.EventId == EventId);
+            var ev = await _unitOfWork.Events.GetByIdWithRSVPsAsync(EventId);
             if (ev == null) return RedirectToAction("List");
 
             var existingRSVP = ev.RSVPs.FirstOrDefault(r => r.UserId == userId);
-
             if (existingRSVP != null)
             {
-                _context.RSVPs.Remove(existingRSVP);
+                _unitOfWork.RSVPs.Remove(existingRSVP);
                 TempData["RSVPMessage"] = "Your RSVP has been canceled.";
             }
             else
@@ -316,11 +271,11 @@ namespace CampusConnect.Controllers
                     EventId = EventId,
                     UserId = userId
                 };
-                _context.RSVPs.Add(newRSVP);
+                await _unitOfWork.RSVPs.AddAsync(newRSVP);
                 TempData["RSVPMessage"] = "You have RSVPed to this event.";
             }
 
-            _context.SaveChanges();
+            await _unitOfWork.CompleteAsync();
             return RedirectToAction("Detail", new { id = EventId });
         }
 
@@ -328,7 +283,7 @@ namespace CampusConnect.Controllers
         // DELETE EVENT
         // ------------------------------
         [HttpPost]
-        public IActionResult DeleteEvent(string EventId)
+        public async Task<IActionResult> DeleteEvent(string EventId)
         {
             var userId = HttpContext.Session.GetString("UserId");
             var role = HttpContext.Session.GetString("Role");
@@ -336,15 +291,13 @@ namespace CampusConnect.Controllers
             if (string.IsNullOrEmpty(EventId) || string.IsNullOrEmpty(userId) || role != "Organizer")
                 return RedirectToAction("List");
 
-            var ev = _context.Events.Include(e => e.RSVPs)
-                                    .FirstOrDefault(e => e.EventId == EventId);
-
+            var ev = await _unitOfWork.Events.GetByIdWithRSVPsAsync(EventId);
             if (ev == null || ev.CreatedById != userId)
                 return RedirectToAction("List");
 
-            _context.RSVPs.RemoveRange(ev.RSVPs);
-            _context.Events.Remove(ev);
-            _context.SaveChanges();
+            _unitOfWork.RSVPs.RemoveRange(ev.RSVPs);
+            _unitOfWork.Events.Remove(ev);
+            await _unitOfWork.CompleteAsync();
 
             return RedirectToAction("List");
         }
