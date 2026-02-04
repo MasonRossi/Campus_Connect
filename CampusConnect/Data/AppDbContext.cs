@@ -19,24 +19,19 @@ namespace CampusConnect.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // -----------------------------
-            // RSVPs → Users / Events
-            // -----------------------------
+            // RSVPs - Users / Events
             modelBuilder.Entity<RSVP>()
                 .HasOne(r => r.User)
                 .WithMany(u => u.RSVPs)
                 .HasForeignKey(r => r.UserId)
-                .OnDelete(DeleteBehavior.Restrict); // prevent multiple cascade paths
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<RSVP>()
                 .HasOne(r => r.Event)
                 .WithMany(e => e.RSVPs)
                 .HasForeignKey(r => r.EventId)
-                .OnDelete(DeleteBehavior.Cascade); // allow cascading deletes from Events
-
-            // -----------------------------
+                .OnDelete(DeleteBehavior.Cascade);
             // Users Seed
-            // -----------------------------
             modelBuilder.Entity<User>().HasData(
                 new User
                 {
@@ -64,9 +59,7 @@ namespace CampusConnect.Data
                 }
             );
 
-            // -----------------------------
             // Locations Seed
-            // -----------------------------
             modelBuilder.Entity<Location>().HasData(
                 new Location
                 {
@@ -82,9 +75,7 @@ namespace CampusConnect.Data
                 }
             );
 
-            // -----------------------------
             // Events Seed
-            // -----------------------------
             modelBuilder.Entity<Event>().HasData(
                 new Event
                 {
@@ -108,9 +99,7 @@ namespace CampusConnect.Data
                 }
             );
 
-            // -----------------------------
             // RSVPs Seed
-            // -----------------------------
             modelBuilder.Entity<RSVP>().HasData(
                 new RSVP
                 {

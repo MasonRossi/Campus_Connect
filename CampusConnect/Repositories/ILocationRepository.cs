@@ -4,5 +4,7 @@ namespace CampusConnect.Data.Repositories
 {
     public interface ILocationRepository : IRepository<Location>
     {
+        Task<IEnumerable<Location>> GetAllAsync();
+
     }
 }

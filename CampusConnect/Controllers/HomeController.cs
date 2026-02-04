@@ -19,9 +19,7 @@ namespace CampusConnect.Controllers
             _passwordHasher = new PasswordHasher<User>();
         }
 
-        // ------------------------------
-        // LOGIN
-        // ------------------------------
+        // Login
         [HttpGet]
         public IActionResult Login()
         {
@@ -48,9 +46,7 @@ namespace CampusConnect.Controllers
             return View(model);
         }
 
-        // ------------------------------
-        // REGISTER
-        // ------------------------------
+        // Register
         [HttpGet]
         public IActionResult Register()
         {
@@ -94,27 +90,21 @@ namespace CampusConnect.Controllers
             return RedirectToAction("Home");
         }
 
-        // ------------------------------
-        // LOGOUT
-        // ------------------------------
+        // Logout
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
             return RedirectToAction("Home");
         }
 
-        // ------------------------------
-        // HOME
-        // ------------------------------
+        // Home
         public IActionResult Home()
         {
             SetHeaderButtons();
             return View();
         }
 
-        // ------------------------------
-        // EVENT LIST
-        // ------------------------------
+        // Event List
         public async Task<IActionResult> List()
         {
             var events = await _unitOfWork.Events.GetAllWithLocationAsync();
@@ -122,9 +112,7 @@ namespace CampusConnect.Controllers
             return View(events.OrderBy(e => e.Date));
         }
 
-        // ------------------------------
-        // PROFILE
-        // ------------------------------
+        // Profile
         public async Task<IActionResult> Profile()
         {
             var userId = HttpContext.Session.GetString("UserId");
@@ -159,9 +147,7 @@ namespace CampusConnect.Controllers
             return View(model);
         }
 
-        // ------------------------------
-        // EVENT DETAILS
-        // ------------------------------
+        // Event Details
         public async Task<IActionResult> Detail(string id)
         {
             if (string.IsNullOrEmpty(id)) return RedirectToAction("List");
@@ -185,9 +171,7 @@ namespace CampusConnect.Controllers
             return View(model);
         }
 
-        // ------------------------------
-        // CREATE / EDIT EVENT
-        // ------------------------------
+        // Create/Edit Event
         public async Task<IActionResult> Create(string id = null)
         {
             SetHeaderButtons();
@@ -239,9 +223,7 @@ namespace CampusConnect.Controllers
             return RedirectToAction("Detail", new { id = model.EventId });
         }
 
-        // ------------------------------
-        // RSVP / CANCEL RSVP
-        // ------------------------------
+        // RSVP/Delete Event
         [HttpPost]
         public async Task<IActionResult> RSVP(string EventId)
         {
@@ -279,9 +261,7 @@ namespace CampusConnect.Controllers
             return RedirectToAction("Detail", new { id = EventId });
         }
 
-        // ------------------------------
-        // DELETE EVENT
-        // ------------------------------
+        // Delete Event
         [HttpPost]
         public async Task<IActionResult> DeleteEvent(string EventId)
         {
@@ -302,9 +282,7 @@ namespace CampusConnect.Controllers
             return RedirectToAction("List");
         }
 
-        // ------------------------------
-        // PRIVATE HELPERS
-        // ------------------------------
+        // Private Helpers
         private void SetUserSession(User user)
         {
             HttpContext.Session.SetString("UserId", user.UserId);
