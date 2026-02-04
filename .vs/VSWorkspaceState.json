@@ -6,6 +6,6 @@
     "\\CampusConnect\\Data",
     "\\CampusConnect\\Repositories"
   ],
-  "SelectedNode": "\\CampusConnect\\Controllers\\HomeController.cs",
+  "SelectedNode": "\\CampusConnect\\Repositories\\UserRepository.cs",
   "PreviewInSolutionExplorer": false
 }
