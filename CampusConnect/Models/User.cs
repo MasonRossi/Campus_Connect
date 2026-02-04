@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CampusConnect.Models
 {
     public class User
     {
         [Key]
-        public string UserId { get; set; }
+        public string UserId { get; set; } = Guid.NewGuid().ToString();
 
         [Required]
         [EmailAddress]
@@ -18,6 +19,8 @@ namespace CampusConnect.Models
         public string Password { get; set; }
 
         [Required]
-        public string Role { get; set; } // "Student" or "Organizer"
+        public string Role { get; set; } 
+        public ICollection<Event> CreatedEvents { get; set; }
+        public ICollection<RSVP> RSVPs { get; set; }
     }
 }

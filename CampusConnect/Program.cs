@@ -1,4 +1,5 @@
 using CampusConnect.Data;
+using CampusConnect.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,9 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container BEFORE building
 builder.Services.AddControllersWithViews();
 
-// Add DbContext for SQLite
+//connect program.cs to server
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 // Add session services
 builder.Services.AddDistributedMemoryCache(); // required for session
