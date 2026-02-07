@@ -18,6 +18,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/maros/Downloads/Y3S2/Systems Project/CampusConnect/Campus_Connect/CampusConnect/Views/Home/AccessDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBY2Nlc3NEZW5pZWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/maros/Downloads/Y3S2/Systems Project/CampusConnect/Campus_Connect/CampusConnect/Views/Home/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

@@ -7,13 +7,15 @@
     <nav>
         @if (ViewBag.HeaderButtons != null)
         {
-            foreach (var button in ViewBag.HeaderButtons)
+            @foreach (var button in ViewBag.HeaderButtons)
             {
-                        <a href="@button.Url" 
-                           style="color:white; margin-left:20px; text-decoration:none; font-size:18px; font-weight:500;">
+                <a asp-controller="@button.Controller"
+                   asp-action="@button.Action"
+                   style="color:white; margin-left:20px; text-decoration:none; font-size:25px; font-weight:500;">
                     @button.Text
-                        </a>
+                </a>
             }
+
         }
     </nav>
 </div>

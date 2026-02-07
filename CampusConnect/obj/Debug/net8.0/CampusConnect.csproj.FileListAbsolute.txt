@@ -409,3 +409,10 @@ C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\Campu
 C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\obj\Debug\net8.0\CampusConnect.pdb
 C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\obj\Debug\net8.0\CampusConnect.genruntimeconfig.cache
 C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\obj\Debug\net8.0\ref\CampusConnect.dll
+C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
+C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
+C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
+C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\bin\Debug\net8.0\Microsoft.Extensions.WebEncoders.dll
+C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\bin\Debug\net8.0\System.Security.Cryptography.Xml.dll
+C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll

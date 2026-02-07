@@ -20,3 +20,11 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.header-button {
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+}

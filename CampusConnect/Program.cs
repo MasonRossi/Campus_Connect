@@ -1,8 +1,18 @@
 using CampusConnect.Data;
 using CampusConnect.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Home/Login";
+        options.AccessDeniedPath = "/Home/AccessDenied";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+    });
 
 // Add services to the container BEFORE building
 builder.Services.AddControllersWithViews();
@@ -39,6 +49,7 @@ app.UseRouting();
 // Session middleware must be before authorization
 app.UseSession();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 // Map default route
