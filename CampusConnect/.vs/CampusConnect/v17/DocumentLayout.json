@@ -11,6 +11,34 @@
       "RelativeMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|solutionrelative:data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|c:\\users\\maros\\downloads\\y3s2\\systems project\\campusconnect\\campus_connect\\campusconnect\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|c:\\users\\maros\\downloads\\y3s2\\systems project\\campusconnect\\campus_connect\\campusconnect\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|c:\\users\\maros\\downloads\\y3s2\\systems project\\campusconnect\\campus_connect\\campusconnect\\repositories\\rsvprepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|solutionrelative:repositories\\rsvprepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|c:\\users\\maros\\downloads\\y3s2\\systems project\\campusconnect\\campus_connect\\campusconnect\\repositories\\ilocationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|solutionrelative:repositories\\ilocationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|c:\\users\\maros\\downloads\\y3s2\\systems project\\campusconnect\\campus_connect\\campusconnect\\repositories\\ieventrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|solutionrelative:repositories\\ieventrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|c:\\users\\maros\\downloads\\y3s2\\systems project\\campusconnect\\campus_connect\\campusconnect\\repositories\\locationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|solutionrelative:repositories\\locationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|c:\\users\\maros\\downloads\\y3s2\\systems project\\campusconnect\\campus_connect\\campusconnect\\repositories\\eventrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|solutionrelative:repositories\\eventrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|c:\\users\\maros\\downloads\\y3s2\\systems project\\campusconnect\\campus_connect\\campusconnect\\repositories\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|solutionrelative:repositories\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -19,20 +47,8 @@
       "RelativeMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|solutionrelative:repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|c:\\users\\maros\\downloads\\y3s2\\systems project\\campusconnect\\campus_connect\\campusconnect\\repositories\\rsvprepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|solutionrelative:repositories\\rsvprepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|c:\\users\\maros\\downloads\\y3s2\\systems project\\campusconnect\\campus_connect\\campusconnect\\repositories\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|solutionrelative:repositories\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|c:\\users\\maros\\downloads\\y3s2\\systems project\\campusconnect\\campus_connect\\campusconnect\\repositories\\ilocationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|solutionrelative:repositories\\ilocationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|c:\\users\\maros\\downloads\\y3s2\\systems project\\campusconnect\\campus_connect\\campusconnect\\repositories\\locationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|solutionrelative:repositories\\locationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|c:\\users\\maros\\downloads\\y3s2\\systems project\\campusconnect\\campus_connect\\campusconnect\\repositories\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -49,22 +65,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|c:\\users\\maros\\downloads\\y3s2\\systems project\\campusconnect\\campus_connect\\campusconnect\\repositories\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|solutionrelative:repositories\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|c:\\users\\maros\\downloads\\y3s2\\systems project\\campusconnect\\campus_connect\\campusconnect\\repositories\\ieventrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|solutionrelative:repositories\\ieventrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|c:\\users\\maros\\downloads\\y3s2\\systems project\\campusconnect\\campus_connect\\campusconnect\\repositories\\eventrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|solutionrelative:repositories\\eventrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|c:\\users\\maros\\downloads\\y3s2\\systems project\\campusconnect\\campus_connect\\campusconnect\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|c:\\users\\maros\\downloads\\y3s2\\systems project\\campusconnect\\campus_connect\\campusconnect\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|c:\\users\\maros\\downloads\\y3s2\\systems project\\campusconnect\\campus_connect\\campusconnect\\data\\appdbcontextfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -150,63 +150,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 10,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{56df62a4-05a3-4e5b-aa1a-99371ccfb997}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ILocationRepository.cs",
-              "DocumentMoniker": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\ILocationRepository.cs",
-              "RelativeDocumentMoniker": "Repositories\\ILocationRepository.cs",
-              "ToolTip": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\ILocationRepository.cs",
-              "RelativeToolTip": "Repositories\\ILocationRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-31T09:33:52.063Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "IRSVPRepository.cs",
-              "DocumentMoniker": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\IRSVPRepository.cs",
-              "RelativeDocumentMoniker": "Repositories\\IRSVPRepository.cs",
-              "ToolTip": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\IRSVPRepository.cs",
-              "RelativeToolTip": "Repositories\\IRSVPRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-31T09:34:18.28Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "IUserRepository.cs",
-              "DocumentMoniker": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\IUserRepository.cs",
-              "RelativeDocumentMoniker": "Repositories\\IUserRepository.cs",
-              "ToolTip": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\IUserRepository.cs",
-              "RelativeToolTip": "Repositories\\IUserRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-31T09:31:05.269Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Repository.cs",
-              "DocumentMoniker": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\Repository.cs",
-              "RelativeDocumentMoniker": "Repositories\\Repository.cs",
-              "ToolTip": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\Repository.cs",
-              "RelativeToolTip": "Repositories\\Repository.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAADMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-31T09:30:51.876Z",
-              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -223,20 +171,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UnitOfWork.cs",
-              "DocumentMoniker": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\UnitOfWork.cs",
-              "RelativeDocumentMoniker": "Repositories\\UnitOfWork.cs",
-              "ToolTip": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\UnitOfWork.cs",
-              "RelativeToolTip": "Repositories\\UnitOfWork.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAAACIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-31T09:35:28.389Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 10,
               "Title": "UserRepository.cs",
               "DocumentMoniker": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\UserRepository.cs",
               "RelativeDocumentMoniker": "Repositories\\UserRepository.cs",
@@ -244,8 +179,7 @@
               "RelativeToolTip": "Repositories\\UserRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-31T09:33:19.466Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-31T09:33:19.466Z"
             },
             {
               "$type": "Document",
@@ -255,7 +189,7 @@
               "RelativeDocumentMoniker": "Repositories\\LocationRepository.cs",
               "ToolTip": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\LocationRepository.cs",
               "RelativeToolTip": "Repositories\\LocationRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-31T09:34:05.384Z",
               "EditorCaption": ""
@@ -268,7 +202,7 @@
               "RelativeDocumentMoniker": "Data\\AppDbContext.cs",
               "ToolTip": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Data\\AppDbContext.cs",
               "RelativeToolTip": "Data\\AppDbContext.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAmwGYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAmwEEAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-11T07:22:01.225Z",
               "EditorCaption": ""
@@ -281,53 +215,14 @@
               "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
               "ToolTip": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Controllers\\HomeController.cs",
               "RelativeToolTip": "Controllers\\HomeController.cs",
-              "ViewState": "AgIAAHwAAAAAAAAAAAAYwBUAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAABYAAAAAAAAAAAAgwA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-11T06:38:45.886Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "IRepository.cs",
-              "DocumentMoniker": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\IRepository.cs",
-              "RelativeDocumentMoniker": "Repositories\\IRepository.cs",
-              "ToolTip": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\IRepository.cs",
-              "RelativeToolTip": "Repositories\\IRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-31T09:30:36.189Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "IUnitOfWork.cs",
-              "DocumentMoniker": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\IUnitOfWork.cs",
-              "RelativeDocumentMoniker": "Repositories\\IUnitOfWork.cs",
-              "ToolTip": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\IUnitOfWork.cs",
-              "RelativeToolTip": "Repositories\\IUnitOfWork.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-31T09:35:14.761Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "IEventRepository.cs",
-              "DocumentMoniker": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\IEventRepository.cs",
-              "RelativeDocumentMoniker": "Repositories\\IEventRepository.cs",
-              "ToolTip": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\IEventRepository.cs",
-              "RelativeToolTip": "Repositories\\IEventRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-31T09:31:24.669Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 8,
               "Title": "EventRepository.cs",
               "DocumentMoniker": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\EventRepository.cs",
               "RelativeDocumentMoniker": "Repositories\\EventRepository.cs",
@@ -340,29 +235,127 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 6,
+              "Title": "IEventRepository.cs",
+              "DocumentMoniker": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\IEventRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\IEventRepository.cs",
+              "ToolTip": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\IEventRepository.cs",
+              "RelativeToolTip": "Repositories\\IEventRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-31T09:31:24.669Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ILocationRepository.cs",
+              "DocumentMoniker": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\ILocationRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\ILocationRepository.cs",
+              "ToolTip": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\ILocationRepository.cs",
+              "RelativeToolTip": "Repositories\\ILocationRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-31T09:33:52.063Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-11T06:28:17.504Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 2,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
               "ToolTip": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\appsettings.json",
               "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-12-11T07:33:02.037Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "UnitOfWork.cs",
+              "DocumentMoniker": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\UnitOfWork.cs",
+              "RelativeDocumentMoniker": "Repositories\\UnitOfWork.cs",
+              "ToolTip": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\UnitOfWork.cs",
+              "RelativeToolTip": "Repositories\\UnitOfWork.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAAACIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-31T09:35:28.389Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Repository.cs",
+              "DocumentMoniker": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\Repository.cs",
+              "RelativeDocumentMoniker": "Repositories\\Repository.cs",
+              "ToolTip": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\Repository.cs",
+              "RelativeToolTip": "Repositories\\Repository.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAADMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-31T09:30:51.876Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "IUserRepository.cs",
+              "DocumentMoniker": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\IUserRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\IUserRepository.cs",
+              "ToolTip": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\IUserRepository.cs",
+              "RelativeToolTip": "Repositories\\IUserRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-31T09:31:05.269Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "IRSVPRepository.cs",
+              "DocumentMoniker": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\IRSVPRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\IRSVPRepository.cs",
+              "ToolTip": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\IRSVPRepository.cs",
+              "RelativeToolTip": "Repositories\\IRSVPRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-31T09:34:18.28Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "IRepository.cs",
+              "DocumentMoniker": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\IRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\IRepository.cs",
+              "ToolTip": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\IRepository.cs",
+              "RelativeToolTip": "Repositories\\IRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-31T09:30:36.189Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "IUnitOfWork.cs",
+              "DocumentMoniker": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\IUnitOfWork.cs",
+              "RelativeDocumentMoniker": "Repositories\\IUnitOfWork.cs",
+              "ToolTip": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Repositories\\IUnitOfWork.cs",
+              "RelativeToolTip": "Repositories\\IUnitOfWork.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-31T09:35:14.761Z"
             },
             {
               "$type": "Document",
@@ -374,8 +367,7 @@
               "RelativeToolTip": "Data\\AppDbContextFactory.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-11T07:35:07.84Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-11T07:35:07.84Z"
             },
             {
               "$type": "Document",
