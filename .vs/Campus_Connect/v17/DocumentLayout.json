@@ -42,8 +42,7 @@
               "RelativeToolTip": "CampusConnect\\Repositories\\Repository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-07T07:12:29.705Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-07T07:12:29.705Z"
             },
             {
               "$type": "Document",
@@ -55,8 +54,7 @@
               "RelativeToolTip": "CampusConnect\\Repositories\\UnitOfWork.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-07T07:12:02.103Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-07T07:12:02.103Z"
             },
             {
               "$type": "Document",
@@ -66,7 +64,7 @@
               "RelativeDocumentMoniker": "CampusConnect\\Controllers\\HomeController.cs",
               "ToolTip": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Controllers\\HomeController.cs",
               "RelativeToolTip": "CampusConnect\\Controllers\\HomeController.cs",
-              "ViewState": "AgIAAC4BAAAAAAAAAAAAAD8BAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAHkBAAAAAAAAAAAAAD8BAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-07T07:10:58.667Z",
               "EditorCaption": ""
@@ -81,8 +79,7 @@
               "RelativeToolTip": "CampusConnect\\Repositories\\UserRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-04T16:44:19.573Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-04T16:44:19.573Z"
             }
           ]
         }
