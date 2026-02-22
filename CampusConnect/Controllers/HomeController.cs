@@ -111,7 +111,11 @@ namespace CampusConnect.Controllers
             SetHeaderButtons();
             return View(events.OrderBy(e => e.Date));
         }
-
+        // access denied (temp)
+        public IActionResult AccessDenied()
+        {
+            return View("AccessDenied");
+        }
         // Profile
         public async Task<IActionResult> Profile()
         {

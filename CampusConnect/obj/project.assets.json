@@ -4007,23 +4007,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\maros\\.nuget\\packages\\": {},
+    "C:\\Users\\Josh P\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\CampusConnect.csproj",
+      "projectUniqueName": "C:\\Users\\Josh P\\source\\repos\\EventHandlerJoshProper\\EventHandlerJoshProper\\Campus_Connect\\CampusConnect\\CampusConnect.csproj",
       "projectName": "CampusConnect",
-      "projectPath": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\CampusConnect.csproj",
-      "packagesPath": "C:\\Users\\maros\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\obj\\",
+      "projectPath": "C:\\Users\\Josh P\\source\\repos\\EventHandlerJoshProper\\EventHandlerJoshProper\\Campus_Connect\\CampusConnect\\CampusConnect.csproj",
+      "packagesPath": "C:\\Users\\Josh P\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Josh P\\source\\repos\\EventHandlerJoshProper\\EventHandlerJoshProper\\Campus_Connect\\CampusConnect\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\maros\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Josh P\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4032,7 +4032,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -4050,7 +4049,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -4096,7 +4096,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.311/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
