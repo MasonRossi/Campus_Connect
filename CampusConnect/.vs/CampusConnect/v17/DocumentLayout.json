@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|c:\\users\\maros\\downloads\\y3s2\\systems project\\campusconnect\\campus_connect\\campusconnect\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|c:\\users\\maros\\downloads\\y3s2\\systems project\\campusconnect\\campus_connect\\campusconnect\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|c:\\users\\maros\\downloads\\y3s2\\systems project\\campusconnect\\campus_connect\\campusconnect\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{989108D1-4164-4A51-99F0-3EEB344CD4BA}|CampusConnect.csproj|c:\\users\\maros\\downloads\\y3s2\\systems project\\campusconnect\\campus_connect\\campusconnect\\views\\shared\\accessdenied.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -154,7 +154,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Bookmark",
@@ -182,8 +182,7 @@
               "RelativeToolTip": "Views\\Shared\\_Header.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-12-11T07:02:21.556Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-11T07:02:21.556Z"
             },
             {
               "$type": "Document",
@@ -207,8 +206,7 @@
               "RelativeToolTip": "Views\\Home\\Home.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-12-11T06:29:36.497Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-11T06:29:36.497Z"
             },
             {
               "$type": "Document",
@@ -220,8 +218,7 @@
               "RelativeToolTip": "wwwroot\\css\\site.css",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-12-11T08:22:58.72Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-11T08:22:58.72Z"
             },
             {
               "$type": "Document",
@@ -233,8 +230,7 @@
               "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-12-11T06:38:01.399Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-11T06:38:01.399Z"
             },
             {
               "$type": "Document",
@@ -250,13 +246,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAApAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-11T06:28:17.504Z",
               "EditorCaption": ""
@@ -271,18 +267,17 @@
               "RelativeToolTip": "Views\\Shared\\AccessDenied.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-02-22T22:47:12.435Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-22T22:47:12.435Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "HomeController.cs",
               "DocumentMoniker": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
               "ToolTip": "C:\\Users\\maros\\Downloads\\Y3S2\\Systems Project\\CampusConnect\\Campus_Connect\\CampusConnect\\Controllers\\HomeController.cs",
               "RelativeToolTip": "Controllers\\HomeController.cs",
-              "ViewState": "AgIAAA8BAAAAAAAAAAAswFYBAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAAKwAAAAAAAAAAAAAwKYAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-11T06:38:45.886Z",
               "EditorCaption": ""

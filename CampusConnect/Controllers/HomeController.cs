@@ -24,11 +24,16 @@ namespace CampusConnect.Controllers
             _passwordHasher = new PasswordHasher<User>();
         }
 
-        // login (anyone)
+        // login (anyone not logged in)
         [AllowAnonymous]
         [HttpGet]
         public IActionResult Login()
         {
+            if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                return Forbid();
+            }
+
             SetHeaderButtons();
             return View(new LoginViewModel());
         }
@@ -65,11 +70,16 @@ namespace CampusConnect.Controllers
             return View(model);
         }
 
-        // Register (anyone)
+        // Register (anyone not logged in)
         [AllowAnonymous]
         [HttpGet]
         public IActionResult Register()
         {
+            if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                return Forbid();
+            }
+
             SetHeaderButtons();
             return View(new RegisterViewModel());
         }
@@ -122,6 +132,8 @@ namespace CampusConnect.Controllers
         // logout (logged in)
         public async Task<IActionResult> Logout()
         {
+
+
             await HttpContext.SignOutAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -152,13 +164,11 @@ namespace CampusConnect.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(userId))
-                return RedirectToAction("Login");
+                return Forbid();
 
             var user = await _unitOfWork.Users
                 .GetByIdWithRSVPsAndCreatedEventsAsync(userId);
 
-            if (user == null)
-                return RedirectToAction("Login");
 
             var model = new ProfileViewModel
             {
