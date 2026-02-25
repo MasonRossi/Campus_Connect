@@ -9,13 +9,19 @@
 
         {
 
-            foreach (var button in ViewBag.HeaderButtons)
-
-            {
-                <a href="@button.Url" class="nav-button">
-                    @button.Text
-                </a>
-            }
+            <nav class="navbar-links">
+                @if (ViewBag.HeaderButtons != null)
+                {
+                    foreach (var button in ViewBag.HeaderButtons)
+                    {
+                        <a asp-controller="@button.Controller"
+                           asp-action="@button.Action"
+                           class="nav-button">
+                            @button.Text
+                        </a>
+                    }
+                }
+            </nav>
 
         }
     </nav>

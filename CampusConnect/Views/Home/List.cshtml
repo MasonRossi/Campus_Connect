@@ -1,4 +1,4 @@
-﻿@model List<CampusConnect.Models.Event>
+﻿@model CampusConnect.viewModels.EventListViewModel
 
 @{
     ViewData["Title"] = "Events";
@@ -19,7 +19,7 @@
 
         <select id="categoryFilter" style="flex:1; min-width:150px; max-width:200px; padding:12px; border-radius:25px; border:1px solid #ccc; outline:none; box-shadow:0 2px 5px rgba(0,0,0,0.1);" onchange="filterEvents()">
             <option value="">All Categories</option>
-            @foreach (var cat in Model.Select(e => e.Category).Distinct())
+            @foreach (var cat in Model.Events.Select(e => e.Category).Distinct())
             {
                 <option value="@cat">@cat</option>
             }
@@ -27,21 +27,21 @@
 
         <select id="locationFilter" style="flex:1; min-width:150px; max-width:200px; padding:12px; border-radius:25px; border:1px solid #ccc; outline:none; box-shadow:0 2px 5px rgba(0,0,0,0.1);" onchange="filterEvents()">
             <option value="">All Locations</option>
-            @foreach (var loc in Model.Select(e => e.Location).Distinct())
-            {
-                <option value="@loc">@loc</option>
-            }
+            @foreach (var loc in Model.Locations)
+{
+    <option value="@loc.Name">@loc.Name</option>
+}
         </select>
     </div>
 
-    @if (!Model.Any())
+    @if (!Model.Events.Any())
     {
         <p style="text-align:center; color:#555;">No events available.</p>
     }
     else
     {
         <div id="eventsList" style="display:flex; flex-direction:column; gap:20px;">
-            @foreach (var ev in Model)
+            @foreach (var ev in Model.Events)
             {
                 <div class="event-card" style="padding:20px; border-radius:15px; border:1px solid #ccc;
                             box-shadow:0 2px 5px rgba(0,0,0,0.1); display:flex; align-items:center;
@@ -50,7 +50,7 @@
                     <div style="display:flex; flex-direction:column; gap:5px;">
                         <h3 class="event-title" style="margin:0; color:#1E73BE;">@ev.Title</h3>
                         <p style="margin:0; color:#555;"><strong>Date:</strong> @ev.Date.ToString("yyyy-MM-dd")</p>
-                        <p style="margin:0; color:#555;"><strong>Location:</strong> @ev.Location</p>
+                        <p style="margin:0; color:#555;"><strong>Location:</strong> @ev.Location.Name</p>
                         <p style="margin:0; color:#555;"><strong>Category:</strong> @ev.Category</p>
                     </div>
 

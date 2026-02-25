@@ -1,11 +1,16 @@
 using CampusConnect.Data.Repositories;
 using CampusConnect.Models;
 using CampusConnect.viewModels;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CampusConnect.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -19,24 +24,43 @@ namespace CampusConnect.Controllers
             _passwordHasher = new PasswordHasher<User>();
         }
 
-        // Login
+        // login (anyone not logged in)
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Login()
         {
+            if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                return Forbid();
+            }
+
             SetHeaderButtons();
             return View(new LoginViewModel());
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            var user = await _unitOfWork.Users.GetByDisplayNameAsync(model.DisplayName);
+            if (!ModelState.IsValid)
+            {
+                SetHeaderButtons();
+                return View(model);
+            }
+
+            var user = await _unitOfWork.Users
+                .GetByDisplayNameAsync(model.DisplayName);
+
             if (user != null)
             {
-                var result = _passwordHasher.VerifyHashedPassword(user, user.Password, model.Password);
+                var result = _passwordHasher.VerifyHashedPassword(
+                    user,
+                    user.Password,
+                    model.Password);
+
                 if (result == PasswordVerificationResult.Success)
                 {
-                    SetUserSession(user);
+                    await SignInUser(user);
                     return RedirectToAction("Home");
                 }
             }
@@ -46,27 +70,41 @@ namespace CampusConnect.Controllers
             return View(model);
         }
 
-        // Register
+        // Register (anyone not logged in)
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Register()
         {
+            if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                return Forbid();
+            }
+
             SetHeaderButtons();
             return View(new RegisterViewModel());
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if (string.IsNullOrWhiteSpace(model.DisplayName) ||
-                string.IsNullOrWhiteSpace(model.Password) ||
-                string.IsNullOrWhiteSpace(model.Role))
+            if (!ModelState.IsValid)
             {
-                model.ErrorMessage = "Please fill in all required fields.";
+                foreach (var state in ModelState)
+                {
+                    foreach (var error in state.Value.Errors)
+                    {
+                        Console.WriteLine(
+                            $"Field: {state.Key} | Error: {error.ErrorMessage}");
+                    }
+                }
+
                 SetHeaderButtons();
                 return View(model);
             }
 
-            if (await _unitOfWork.Users.ExistsByDisplayNameAsync(model.DisplayName))
+            if (await _unitOfWork.Users
+                .ExistsByDisplayNameAsync(model.DisplayName))
             {
                 model.ErrorMessage = "Username already taken.";
                 SetHeaderButtons();
@@ -81,49 +119,66 @@ namespace CampusConnect.Controllers
                 Role = model.Role
             };
 
-            newUser.Password = _passwordHasher.HashPassword(newUser, model.Password);
+            newUser.Password = _passwordHasher
+                .HashPassword(newUser, model.Password);
 
             await _unitOfWork.Users.AddAsync(newUser);
             await _unitOfWork.CompleteAsync();
 
-            SetUserSession(newUser);
+            await SignInUser(newUser);
             return RedirectToAction("Home");
         }
 
-        // Logout
-        public IActionResult Logout()
+        // logout (logged in)
+        [HttpGet]
+        public async Task<IActionResult> Logout()
         {
-            HttpContext.Session.Clear();
+
+
+            await HttpContext.SignOutAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme);
+
             return RedirectToAction("Home");
         }
 
-        // Home
+        // home/start page (anyone)
+        [HttpGet]
+        [AllowAnonymous]
         public IActionResult Home()
         {
             SetHeaderButtons();
             return View();
         }
 
-        // Event List
+        // list of events (anyone)
+        [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> List()
         {
             var events = await _unitOfWork.Events.GetAllWithLocationAsync();
+            var locations = await _unitOfWork.Locations.GetAllAsync();
+
+            var eventListViewModel = new EventListViewModel
+            {
+                Events = events.OrderBy(e => e.Date).ToList(),
+                Locations = locations.ToList()
+            };
+
             SetHeaderButtons();
-            return View(events.OrderBy(e => e.Date));
+            return View(eventListViewModel);
         }
-        // access denied (temp)
-        public IActionResult AccessDenied()
-        {
-            return View("AccessDenied");
-        }
-        // Profile
+
+        // view user profile (logged in)
+        [HttpGet]
         public async Task<IActionResult> Profile()
         {
-            var userId = HttpContext.Session.GetString("UserId");
-            if (string.IsNullOrEmpty(userId)) return RedirectToAction("Login");
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+                return Forbid();
 
-            var user = await _unitOfWork.Users.GetByIdWithRSVPsAndCreatedEventsAsync(userId);
-            if (user == null) return RedirectToAction("Login");
+            var user = await _unitOfWork.Users
+                .GetByIdWithRSVPsAndCreatedEventsAsync(userId);
+
 
             var model = new ProfileViewModel
             {
@@ -134,201 +189,287 @@ namespace CampusConnect.Controllers
 
             if (user.Role == "Student")
             {
-                var events = new List<Event>();
-                foreach (var rsvp in user.RSVPs)
-                {
-                    var ev = await _unitOfWork.Events.GetByIdWithLocationAsync(rsvp.EventId);
-                    if (ev != null) events.Add(ev);
-                }
-                model.RSVPedEvents = events.OrderBy(e => e.Date).ToList();
+                model.RSVPedEvents = user.RSVPs
+                    .Select(r => r.Event)
+                    .Where(e => e != null)
+                    .OrderBy(e => e.Date)
+                    .ToList();
             }
             else if (user.Role == "Organizer")
             {
-                model.CreatedEvents = user.CreatedEvents.OrderBy(e => e.Date).ToList();
+                model.CreatedEvents = user.CreatedEvents
+                    .OrderBy(e => e.Date)
+                    .ToList();
             }
 
             SetHeaderButtons();
             return View(model);
         }
 
-        // Event Details
+        // view event details (anyone)
+        [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Detail(string id)
         {
-            if (string.IsNullOrEmpty(id)) return RedirectToAction("List");
+            if (string.IsNullOrEmpty(id))
+                return RedirectToAction("List");
 
-            var ev = await _unitOfWork.Events.GetByIdWithAllRelationsAsync(id);
-            if (ev == null) return RedirectToAction("List");
+            var ev = await _unitOfWork.Events
+                .GetByIdWithAllRelationsAsync(id);
 
-            var userId = HttpContext.Session.GetString("UserId");
-            var role = HttpContext.Session.GetString("Role");
+            if (ev == null)
+                return RedirectToAction("List");
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var role = User.FindFirstValue(ClaimTypes.Role);
 
             var model = new EventDetailViewModel
             {
                 Event = ev,
                 CreatorDisplayName = ev.CreatedBy?.DisplayName ?? "Unknown",
-                CanEdit = !string.IsNullOrEmpty(userId) && ev.CreatedById == userId,
-                CanRSVP = !string.IsNullOrEmpty(userId) && role == "Student" && ev.CreatedById != userId,
-                IsRSVPed = !string.IsNullOrEmpty(userId) && ev.RSVPs.Any(r => r.UserId == userId)
+                CanEdit = userId != null && ev.CreatedById == userId,
+                CanRSVP = userId != null &&
+                          role == "Student" &&
+                          ev.CreatedById != userId,
+                IsRSVPed = userId != null &&
+                           ev.RSVPs.Any(r => r.UserId == userId)
             };
 
             SetHeaderButtons();
             return View(model);
         }
 
-        // Create/Edit Event
+        // create a new event (organizers)
+        [HttpGet]
+        [Authorize(Roles = "Organizer")]
         public async Task<IActionResult> Create(string id = null)
         {
             SetHeaderButtons();
-            if (string.IsNullOrEmpty(id)) return View(new Event());
+
+            var locations = (await _unitOfWork.Locations.GetAllAsync()).ToList();
+
+            if (string.IsNullOrEmpty(id))
+            {
+                return View(new CreateEditEventViewModel
+                {
+                    Locations = locations
+                });
+            }
 
             var ev = await _unitOfWork.Events.GetByIdWithLocationAsync(id);
-            if (ev == null) return RedirectToAction("List");
 
-            return View(ev);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> SaveEvent(Event model)
-        {
-            var userId = HttpContext.Session.GetString("UserId");
-            var role = HttpContext.Session.GetString("Role");
-
-            if (role != "Organizer" || string.IsNullOrEmpty(userId))
+            if (ev == null)
                 return RedirectToAction("List");
 
-            if (string.IsNullOrWhiteSpace(model.Title) ||
-                string.IsNullOrWhiteSpace(model.Description) ||
-                model.Date == default ||
-                string.IsNullOrEmpty(model.Category))
+            if (ev.CreatedById != User.FindFirstValue(ClaimTypes.NameIdentifier))
+                return Forbid();
+
+            return View(new CreateEditEventViewModel
             {
-                ViewBag.ErrorMessage = "Please fill in all required fields.";
+                EventId = ev.EventId,
+                Title = ev.Title,
+                Description = ev.Description,
+                Date = ev.Date,
+                Category = ev.Category,
+                SelectedLocationId = ev.LocationId,
+                Locations = locations
+            });
+        }
+
+        // Save an event (Organizer)
+        [HttpPost]
+        [Authorize(Roles = "Organizer")]
+        public async Task<IActionResult> SaveEvent(CreateEditEventViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                SetHeaderButtons();
+                model.Locations = (await _unitOfWork.Locations.GetAllAsync()).ToList();
                 return View("Create", model);
             }
 
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            Location location;
+
+            if (model.CreateNewLocation)
+            {
+                location = new Location
+                {
+                    LocationId = Guid.NewGuid().ToString(),
+                    Name = model.NewLocationName,
+                    Description = model.NewLocationDescription
+                };
+
+                await _unitOfWork.Locations.AddAsync(location);
+            }
+            else
+            {
+                location = await _unitOfWork.Locations.GetByIdAsync(model.SelectedLocationId);
+                if (location == null)
+                {
+                    ModelState.AddModelError("", "Invalid location selected.");
+                    SetHeaderButtons();
+                    model.Locations = (await _unitOfWork.Locations.GetAllAsync()).ToList();
+                    return View("Create", model);
+                }
+            }
+
+            Event ev;
+
             if (string.IsNullOrEmpty(model.EventId))
             {
-                model.EventId = Guid.NewGuid().ToString();
-                model.CreatedById = userId;
-                await _unitOfWork.Events.AddAsync(model);
+                ev = new Event
+                {
+                    EventId = Guid.NewGuid().ToString(),
+                    CreatedById = userId
+                };
+
+                await _unitOfWork.Events.AddAsync(ev);
             }
             else
             {
-                var ev = await _unitOfWork.Events.GetByIdWithLocationAsync(model.EventId);
-                if (ev == null) return RedirectToAction("List");
+                ev = await _unitOfWork.Events.GetByIdWithLocationAsync(model.EventId);
 
-                ev.Title = model.Title;
-                ev.Description = model.Description;
-                ev.Date = model.Date;
-                ev.Category = model.Category;
-                ev.LocationId = model.LocationId;
+                if (ev == null || ev.CreatedById != userId)
+                    return Forbid();
             }
+
+            ev.Title = model.Title;
+            ev.Description = model.Description;
+            ev.Date = model.Date;
+            ev.Category = model.Category;
+            ev.LocationId = location.LocationId;
 
             await _unitOfWork.CompleteAsync();
-            return RedirectToAction("Detail", new { id = model.EventId });
+
+            return RedirectToAction("Detail", new { id = ev.EventId });
         }
 
-        // RSVP/Delete Event
+        // RSVP to event (Student)
         [HttpPost]
-        public async Task<IActionResult> RSVP(string EventId)
+        [Authorize(Roles = "Student")]
+        public async Task<IActionResult> RSVP(string eventId)
         {
-            var userId = HttpContext.Session.GetString("UserId");
-            var role = HttpContext.Session.GetString("Role");
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (string.IsNullOrEmpty(userId) || role != "Student")
+            var ev = await _unitOfWork.Events
+                .GetByIdWithRSVPsAsync(eventId);
+
+            if (ev == null)
+                return RedirectToAction("List");
+
+            var existing = ev.RSVPs
+                .FirstOrDefault(r => r.UserId == userId);
+
+            if (existing != null)
             {
-                TempData["RSVPMessage"] = "You must be a student to RSVP.";
-                return RedirectToAction("Detail", new { id = EventId });
-            }
-
-            var ev = await _unitOfWork.Events.GetByIdWithRSVPsAsync(EventId);
-            if (ev == null) return RedirectToAction("List");
-
-            var existingRSVP = ev.RSVPs.FirstOrDefault(r => r.UserId == userId);
-            if (existingRSVP != null)
-            {
-                _unitOfWork.RSVPs.Remove(existingRSVP);
-                TempData["RSVPMessage"] = "Your RSVP has been canceled.";
+                _unitOfWork.RSVPs.Remove(existing);
+                TempData["RSVPMessage"] = "RSVP canceled.";
             }
             else
             {
-                var newRSVP = new RSVP
+                await _unitOfWork.RSVPs.AddAsync(new RSVP
                 {
                     RSVPId = Guid.NewGuid().ToString(),
-                    EventId = EventId,
+                    EventId = eventId,
                     UserId = userId
-                };
-                await _unitOfWork.RSVPs.AddAsync(newRSVP);
-                TempData["RSVPMessage"] = "You have RSVPed to this event.";
+                });
+
+                TempData["RSVPMessage"] = "RSVP successful.";
             }
 
             await _unitOfWork.CompleteAsync();
-            return RedirectToAction("Detail", new { id = EventId });
+
+            return RedirectToAction("Detail",
+                new { id = eventId });
         }
 
-        // Delete Event
+        // Delete event (organizers)
         [HttpPost]
-        public async Task<IActionResult> DeleteEvent(string EventId)
+        [Authorize(Roles = "Organizer")]
+        public async Task<IActionResult> DeleteEvent(string eventId)
         {
-            var userId = HttpContext.Session.GetString("UserId");
-            var role = HttpContext.Session.GetString("Role");
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (string.IsNullOrEmpty(EventId) || string.IsNullOrEmpty(userId) || role != "Organizer")
-                return RedirectToAction("List");
+            var ev = await _unitOfWork.Events
+                .GetByIdWithRSVPsAsync(eventId);
 
-            var ev = await _unitOfWork.Events.GetByIdWithRSVPsAsync(EventId);
             if (ev == null || ev.CreatedById != userId)
-                return RedirectToAction("List");
+                return Forbid();
 
             _unitOfWork.RSVPs.RemoveRange(ev.RSVPs);
             _unitOfWork.Events.Remove(ev);
+
             await _unitOfWork.CompleteAsync();
 
             return RedirectToAction("List");
         }
 
-        // Private Helpers
-        private void SetUserSession(User user)
+        // Access denied page
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
         {
-            HttpContext.Session.SetString("UserId", user.UserId);
-            HttpContext.Session.SetString("DisplayName", user.DisplayName);
-            HttpContext.Session.SetString("Role", user.Role);
+            SetHeaderButtons();
+            return View();
         }
 
+        // Private Helpers
+        // sign in users
+        private async Task SignInUser(User user)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.UserId),
+                new Claim(ClaimTypes.Name, user.DisplayName),
+                new Claim(ClaimTypes.Role, user.Role)
+            };
+
+            var identity = new ClaimsIdentity(
+                claims,
+                CookieAuthenticationDefaults.AuthenticationScheme);
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(identity));
+        }
+
+        // set buttons on the header
         private void SetHeaderButtons()
         {
-            var userId = HttpContext.Session.GetString("UserId");
-            var role = HttpContext.Session.GetString("Role");
+            var role = User.FindFirstValue(ClaimTypes.Role);
             var buttons = new List<dynamic>();
 
-            if (!string.IsNullOrEmpty(userId) && role == "Organizer")
+            if (role == "Organizer")
             {
                 buttons.AddRange(new[]
                 {
-                    new { Text = "Home", Url = "/Home" },
-                    new { Text = "Create Event", Url = "/Home/Create" },
-                    new { Text = "Events", Url = "/Home/List" },
-                    new { Text = "Profile", Url = "/Home/Profile" },
-                    new { Text = "Logout", Url = "/Home/Logout" }
+                    new { Text = "Home", Controller = "Home", Action = "Home" },
+                    new { Text = "Create Event", Controller = "Home", Action = "Create" },
+                    new { Text = "Events", Controller = "Home", Action = "List" },
+                    new { Text = "Profile", Controller = "Home", Action = "Profile" },
+                    new { Text = "Logout", Controller = "Home", Action = "Logout" }
                 });
             }
-            else if (!string.IsNullOrEmpty(userId) && role == "Student")
+            else if (role == "Student")
             {
                 buttons.AddRange(new[]
                 {
-                    new { Text = "Home", Url = "/Home" },
-                    new { Text = "Events", Url = "/Home/List" },
-                    new { Text = "Profile", Url = "/Home/Profile" },
-                    new { Text = "Logout", Url = "/Home/Logout" }
+                    new { Text = "Home", Controller = "Home", Action = "Home" },
+                    new { Text = "Events", Controller = "Home", Action = "List" },
+                    new { Text = "Profile", Controller = "Home", Action = "Profile" },
+                    new { Text = "Logout", Controller = "Home", Action = "Logout" }
                 });
             }
             else
             {
                 buttons.AddRange(new[]
                 {
-                    new { Text = "Home", Url = "/Home" },
-                    new { Text = "Events", Url = "/Home/List" },
-                    new { Text = "Login", Url = "/Home/Login" },
-                    new { Text = "Register", Url = "/Home/Register" }
+                    new { Text = "Home", Controller = "Home", Action = "Home" },
+                    new { Text = "Events", Controller = "Home", Action = "List" },
+                    new { Text = "Login", Controller = "Home", Action = "Login"},
+                    new { Text = "Register", Controller = "Home" , Action = "Register" }
                 });
             }
 

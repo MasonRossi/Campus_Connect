@@ -1,10 +1,22 @@
-﻿namespace CampusConnect.viewModels
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
+
+namespace CampusConnect.viewModels
 {
     public class LoginViewModel
     {
+        [Required(ErrorMessage = "Display Name is required.")]
+        [StringLength(50, ErrorMessage = "Display Name cannot exceed 50 characters.")]
         public string DisplayName { get; set; }
+
+        [Required(ErrorMessage = "Password is required.")]
+        [DataType(DataType.Password)]
+        [StringLength(100, MinimumLength = 6,
+            ErrorMessage = "Password must be at least 6 characters.")]
         public string Password { get; set; }
-        public string ErrorMessage { get; set; }
+
+        [ValidateNever]
+        public string? ErrorMessage { get; set; }
     }
 
 }

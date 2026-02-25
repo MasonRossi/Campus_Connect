@@ -15,7 +15,7 @@
     <div style="padding:25px; border-radius:15px; border:1px solid #ccc;
                 box-shadow:0 2px 5px rgba(0,0,0,0.1); background-color:white; display:flex; flex-direction:column; gap:15px;">
         <p><strong>Date:</strong> @Model.Event.Date.ToString("dddd, MMM dd, yyyy 'at' h:mm tt")</p>
-        <p><strong>Location:</strong> @Model.Event.Location</p>
+        <p><strong>Location:</strong> @Model.Event.Location.Name</p>
         <p><strong>Category:</strong> @Model.Event.Category</p>
         <p><strong>Created By:</strong> @Model.CreatorDisplayName</p>
         <p><strong>RSVP Count:</strong> @Model.Event.RSVPCount</p>
