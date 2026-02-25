@@ -4,8 +4,9 @@
     "\\CampusConnect",
     "\\CampusConnect\\Controllers",
     "\\CampusConnect\\Data",
-    "\\CampusConnect\\Repositories"
+    "\\CampusConnect\\Repositories",
+    "\\CampusConnect\\viewModels"
   ],
-  "SelectedNode": "\\CampusConnect\\CampusConnect.sln",
+  "SelectedNode": "\\CampusConnect\\viewModels\\CreateEditEventViewModel.cs",
   "PreviewInSolutionExplorer": false
 }
