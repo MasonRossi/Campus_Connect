@@ -64,7 +64,7 @@ namespace CampusConnect.Migrations
                             EventId = "event1",
                             Category = "Social",
                             CreatedById = "org1",
-                            Date = new DateTime(2026, 2, 7, 9, 7, 9, 700, DateTimeKind.Utc).AddTicks(5303),
+                            Date = new DateTime(2026, 3, 4, 3, 19, 36, 431, DateTimeKind.Utc).AddTicks(2239),
                             Description = "Welcome new students! Meet your peers and faculty.",
                             LocationId = "loc1",
                             Title = "Orientation Day"
@@ -74,7 +74,7 @@ namespace CampusConnect.Migrations
                             EventId = "event2",
                             Category = "Educational",
                             CreatedById = "org1",
-                            Date = new DateTime(2026, 2, 10, 9, 7, 9, 700, DateTimeKind.Utc).AddTicks(5314),
+                            Date = new DateTime(2026, 3, 7, 3, 19, 36, 431, DateTimeKind.Utc).AddTicks(2247),
                             Description = "Learn to code in C# and build small projects.",
                             LocationId = "loc2",
                             Title = "Coding Workshop"
@@ -142,14 +142,14 @@ namespace CampusConnect.Migrations
                         {
                             RSVPId = "rsvp1",
                             EventId = "event1",
-                            Timestamp = new DateTime(2026, 1, 31, 9, 7, 9, 700, DateTimeKind.Utc).AddTicks(5342),
+                            Timestamp = new DateTime(2026, 2, 25, 3, 19, 36, 431, DateTimeKind.Utc).AddTicks(2272),
                             UserId = "user1"
                         },
                         new
                         {
                             RSVPId = "rsvp2",
                             EventId = "event2",
-                            Timestamp = new DateTime(2026, 1, 31, 9, 7, 9, 700, DateTimeKind.Utc).AddTicks(5348),
+                            Timestamp = new DateTime(2026, 2, 25, 3, 19, 36, 431, DateTimeKind.Utc).AddTicks(2274),
                             UserId = "user2"
                         });
                 });

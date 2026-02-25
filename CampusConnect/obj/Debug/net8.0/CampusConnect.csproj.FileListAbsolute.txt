@@ -313,7 +313,6 @@ C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\Campu
 C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\bin\Debug\net8.0\System.Composition.TypedParts.dll
 C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
 C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\bin\Debug\net8.0\System.Drawing.Common.dll
-C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\bin\Debug\net8.0\System.Formats.Asn1.dll
 C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\bin\Debug\net8.0\System.Memory.Data.dll
 C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\bin\Debug\net8.0\System.Runtime.Caching.dll
@@ -395,11 +394,6 @@ C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\Campu
 C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\obj\Debug\net8.0\CampusConnect.sourcelink.json
 C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\obj\Debug\net8.0\staticwebassets.development.json
-C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\obj\Debug\net8.0\staticwebassets\msbuild.CampusConnect.Microsoft.AspNetCore.StaticWebAssets.props
-C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\obj\Debug\net8.0\staticwebassets\msbuild.build.CampusConnect.props
-C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.CampusConnect.props
-C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.CampusConnect.props
-C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\obj\Debug\net8.0\staticwebassets.pack.json
 C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\obj\Debug\net8.0\scopedcss\bundle\CampusConnect.styles.css
 C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\obj\Debug\net8.0\scopedcss\projectbundle\CampusConnect.bundle.scp.css
@@ -416,3 +410,12 @@ C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\Campu
 C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\bin\Debug\net8.0\System.Security.Cryptography.Xml.dll
 C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\bin\Debug\net8.0\CampusConnect.staticwebassets.endpoints.json
+C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\obj\Debug\net8.0\rjimswa.dswa.cache.json
+C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\obj\Debug\net8.0\staticwebassets.build.json.cache
+C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\obj\Debug\net8.0\swae.build.ex.cache
+C:\Users\maros\Downloads\Y3S2\Systems Project\CampusConnect\Campus_Connect\CampusConnect\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

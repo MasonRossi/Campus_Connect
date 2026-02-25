@@ -130,6 +130,7 @@ namespace CampusConnect.Controllers
         }
 
         // logout (logged in)
+        [HttpGet]
         public async Task<IActionResult> Logout()
         {
 
@@ -141,6 +142,7 @@ namespace CampusConnect.Controllers
         }
 
         // home/start page (anyone)
+        [HttpGet]
         [AllowAnonymous]
         public IActionResult Home()
         {
@@ -149,17 +151,25 @@ namespace CampusConnect.Controllers
         }
 
         // list of events (anyone)
+        [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> List()
         {
-            var events = await _unitOfWork.Events
-                .GetAllWithLocationAsync();
+            var events = await _unitOfWork.Events.GetAllWithLocationAsync();
+            var locations = await _unitOfWork.Locations.GetAllAsync();
+
+            var eventListViewModel = new EventListViewModel
+            {
+                Events = events.OrderBy(e => e.Date).ToList(),
+                Locations = locations.ToList()
+            };
 
             SetHeaderButtons();
-            return View(events.OrderBy(e => e.Date));
+            return View(eventListViewModel);
         }
 
         // view user profile (logged in)
+        [HttpGet]
         public async Task<IActionResult> Profile()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -197,6 +207,7 @@ namespace CampusConnect.Controllers
         }
 
         // view event details (anyone)
+        [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Detail(string id)
         {
@@ -229,16 +240,23 @@ namespace CampusConnect.Controllers
         }
 
         // create a new event (organizers)
+        [HttpGet]
         [Authorize(Roles = "Organizer")]
         public async Task<IActionResult> Create(string id = null)
         {
             SetHeaderButtons();
 
-            if (string.IsNullOrEmpty(id))
-                return View(new Event());
+            var locations = (await _unitOfWork.Locations.GetAllAsync()).ToList();
 
-            var ev = await _unitOfWork.Events
-                .GetByIdWithLocationAsync(id);
+            if (string.IsNullOrEmpty(id))
+            {
+                return View(new CreateEditEventViewModel
+                {
+                    Locations = locations
+                });
+            }
+
+            var ev = await _unitOfWork.Events.GetByIdWithLocationAsync(id);
 
             if (ev == null)
                 return RedirectToAction("List");
@@ -246,43 +264,86 @@ namespace CampusConnect.Controllers
             if (ev.CreatedById != User.FindFirstValue(ClaimTypes.NameIdentifier))
                 return Forbid();
 
-            return View(ev);
+            return View(new CreateEditEventViewModel
+            {
+                EventId = ev.EventId,
+                Title = ev.Title,
+                Description = ev.Description,
+                Date = ev.Date,
+                Category = ev.Category,
+                SelectedLocationId = ev.LocationId,
+                Locations = locations
+            });
         }
 
+        // Save an event (Organizer)
         [HttpPost]
         [Authorize(Roles = "Organizer")]
-        public async Task<IActionResult> SaveEvent(Event model)
+        public async Task<IActionResult> SaveEvent(CreateEditEventViewModel model)
         {
             if (!ModelState.IsValid)
+            {
+                SetHeaderButtons();
+                model.Locations = (await _unitOfWork.Locations.GetAllAsync()).ToList();
                 return View("Create", model);
+            }
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (string.IsNullOrEmpty(model.EventId))
+            Location location;
+
+            if (model.CreateNewLocation)
             {
-                model.EventId = Guid.NewGuid().ToString();
-                model.CreatedById = userId;
-                await _unitOfWork.Events.AddAsync(model);
+                location = new Location
+                {
+                    LocationId = Guid.NewGuid().ToString(),
+                    Name = model.NewLocationName,
+                    Description = model.NewLocationDescription
+                };
+
+                await _unitOfWork.Locations.AddAsync(location);
             }
             else
             {
-                var ev = await _unitOfWork.Events
-                    .GetByIdWithLocationAsync(model.EventId);
+                location = await _unitOfWork.Locations.GetByIdAsync(model.SelectedLocationId);
+                if (location == null)
+                {
+                    ModelState.AddModelError("", "Invalid location selected.");
+                    SetHeaderButtons();
+                    model.Locations = (await _unitOfWork.Locations.GetAllAsync()).ToList();
+                    return View("Create", model);
+                }
+            }
+
+            Event ev;
+
+            if (string.IsNullOrEmpty(model.EventId))
+            {
+                ev = new Event
+                {
+                    EventId = Guid.NewGuid().ToString(),
+                    CreatedById = userId
+                };
+
+                await _unitOfWork.Events.AddAsync(ev);
+            }
+            else
+            {
+                ev = await _unitOfWork.Events.GetByIdWithLocationAsync(model.EventId);
 
                 if (ev == null || ev.CreatedById != userId)
                     return Forbid();
-
-                ev.Title = model.Title;
-                ev.Description = model.Description;
-                ev.Date = model.Date;
-                ev.Category = model.Category;
-                ev.LocationId = model.LocationId;
             }
+
+            ev.Title = model.Title;
+            ev.Description = model.Description;
+            ev.Date = model.Date;
+            ev.Category = model.Category;
+            ev.LocationId = location.LocationId;
 
             await _unitOfWork.CompleteAsync();
 
-            return RedirectToAction("Detail",
-                new { id = model.EventId });
+            return RedirectToAction("Detail", new { id = ev.EventId });
         }
 
         // RSVP to event (Student)
@@ -346,6 +407,7 @@ namespace CampusConnect.Controllers
         }
 
         // Access denied page
+        [HttpGet]
         [AllowAnonymous]
         public IActionResult AccessDenied()
         {
