@@ -23,13 +23,13 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Restore
-        run: dotnet restore
+        run: dotnet restore CampusConnect/CampusConnect.csproj
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build  CampusConnect/CampusConnect.csproj --configuration Release --no-restore
 
       - name: Publish
-        run: dotnet publish -c Release -o publish
+        run: dotnet publish  CampusConnect/CampusConnect.csproj -c Release -o publish
 
       - name: Deploy to Azure
         uses: azure/webapps-deploy@v3
