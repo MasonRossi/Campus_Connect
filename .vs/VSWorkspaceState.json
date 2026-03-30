@@ -1,10 +1,11 @@
 {
   "ExpandedNodes": [
     "",
+    "\\.github",
+    "\\.github\\workflows",
     "\\CampusConnect",
     "\\CampusConnect\\Views",
     "\\CampusConnect\\Views\\Home"
   ],
-  "SelectedNode": "\\CampusConnect\\Views\\Home\\Home.cshtml",
   "PreviewInSolutionExplorer": false
 }
