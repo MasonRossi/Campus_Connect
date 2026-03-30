@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  AZURE_WEBAPP_NAME: your-app-name
+  AZURE_WEBAPP_NAME: CampusConnectProject
   DOTNET_VERSION: '8.0.x'
 
 jobs:
