@@ -1,7 +1,5 @@
 ﻿using CampusConnect.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CampusConnect.Data.Repositories
 {
@@ -23,7 +21,10 @@ namespace CampusConnect.Data.Repositories
         {
             return await _context.Users
                 .Include(u => u.RSVPs)
-                .Include(u => u.CreatedEvents)
+            .ThenInclude(r => r.Event)
+                .ThenInclude(e => e.Location)
+        .Include(u => u.CreatedEvents)
+            .ThenInclude(e => e.Location)
                 .FirstOrDefaultAsync(u => u.UserId == userId);
         }
     }
