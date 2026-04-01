@@ -56,7 +56,7 @@ namespace CampusConnect.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("Events");
+                    b.ToTable("Events", (string)null);
 
                     b.HasData(
                         new
@@ -96,7 +96,7 @@ namespace CampusConnect.Migrations
 
                     b.HasKey("LocationId");
 
-                    b.ToTable("Locations");
+                    b.ToTable("Locations", (string)null);
 
                     b.HasData(
                         new
@@ -135,7 +135,7 @@ namespace CampusConnect.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("RSVPs");
+                    b.ToTable("RSVPs", (string)null);
 
                     b.HasData(
                         new
@@ -177,7 +177,7 @@ namespace CampusConnect.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
 
                     b.HasData(
                         new
