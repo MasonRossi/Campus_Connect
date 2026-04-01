@@ -12,12 +12,17 @@
         <p style="color:red; font-weight:600;">@Model.ErrorMessage</p>
     }
 
-    <form asp-action="Login" method="post" style="display:flex; flex-direction:column; gap:15px;">
+    <form asp-action="Login" asp-controller="Home" method="post" style="display:flex; flex-direction:column; gap:15px;">
+        @Html.AntiForgeryToken()
 
-        <input type="text" name="DisplayName" placeholder="Username" value="@Model.DisplayName" required
+        <!-- Username -->
+        <span asp-validation-for="DisplayName" style="color:red; font-weight:600;"></span>
+        <input asp-for="DisplayName" placeholder="Username"
                style="padding:12px; border-radius:25px; border:1px solid #ccc; outline:none; box-shadow:0 2px 5px rgba(0,0,0,0.1);" />
 
-        <input type="password" name="Password" placeholder="Password" required
+        <!-- Password -->
+        <span asp-validation-for="Password" style="color:red; font-weight:600;"></span>
+        <input asp-for="Password" placeholder="Password" type="password"
                style="padding:12px; border-radius:25px; border:1px solid #ccc; outline:none; box-shadow:0 2px 5px rgba(0,0,0,0.1);" />
 
         <button type="submit"
@@ -27,6 +32,10 @@
         </button>
     </form>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
 
 <style>
     input:focus {

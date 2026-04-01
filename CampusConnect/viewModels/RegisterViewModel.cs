@@ -5,18 +5,20 @@ namespace CampusConnect.viewModels
 {
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Display Name is required.")]
+        [StringLength(50, ErrorMessage = "Display Name cannot exceed 50 characters.")]
         public string DisplayName { get; set; }
 
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Email is required.")]
+        [EmailAddress (ErrorMessage = "Must be a valid email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Password is required.")]
         [DataType(DataType.Password)]
+        [StringLength(100, MinimumLength = 6, ErrorMessage = "Password must be at least 6 characters.")]
         public string Password { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Role is required.")]
         public string Role { get; set; }
 
         [ValidateNever]
