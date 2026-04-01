@@ -6,37 +6,39 @@
 }
 
 <div style="max-width:600px; margin:50px auto; font-family:'Segoe UI', sans-serif;">
-    @if (!ViewData.ModelState.IsValid)
-    {
-        <div style="color:red; font-weight:600;">
-            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-            {
-                <div>@error.ErrorMessage</div>
-            }
-        </div>
-    }
+    
     <h2 style="font-weight:700; color:#1E73BE; text-align:center; margin-bottom:30px;">
         @(isEdit ? "Edit Event" : "Create Event")
     </h2>
 
     <form asp-action="SaveEvent" method="post" style="display:flex; flex-direction:column; gap:15px;">
+        @Html.AntiForgeryToken()
 
         <input type="hidden" asp-for="EventId" />
 
-        <input asp-for="Title" placeholder="Title" required
+        <!-- Title -->
+        <span asp-validation-for="Title" style="color:red; font-weight:600;"></span>
+        <input asp-for="Title" placeholder="Title"
                style="padding:12px; border-radius:25px; border:1px solid #ccc;" />
 
-        <textarea asp-for="Description" rows="5" placeholder="Description" required
+        <!-- Description -->
+        <span asp-validation-for="Description" style="color:red; font-weight:600;"></span>
+        <textarea asp-for="Description" rows="5" placeholder="Description"
                   style="padding:12px; border-radius:15px; border:1px solid #ccc;"></textarea>
 
-        <input asp-for="Date" type="datetime-local" required
-               value="@(Model.Date != default ? Model.Date.ToString("yyyy-MM-ddTHH:mm") : "")"
+        <!-- Date -->
+        <span asp-validation-for="Date" style="color:red; font-weight:600;"></span>
+        <input asp-for="Date" type="datetime-local"
+               value="@(Model.Date != default ? Model.Date.ToString("yyyy-MM-ddTHH:mm") : DateTime.Now.ToString("yyyy-MM-ddTHH:mm"))"
                style="padding:12px; border-radius:25px; border:1px solid #ccc;" />
 
-        <input asp-for="Category" placeholder="Category" required
+        <!-- Category -->
+        <span asp-validation-for="Category" style="color:red; font-weight:600;"></span>
+        <input asp-for="Category" placeholder="Category"
                style="padding:12px; border-radius:25px; border:1px solid #ccc;" />
 
         <!-- Location Dropdown -->
+        <span asp-validation-for="SelectedLocationId" style="color:red; font-weight:600;"></span>
         <select asp-for="SelectedLocationId" id="locationSelect"
                 style="padding:12px; border-radius:25px; border:1px solid #ccc;"
                 onchange="toggleNewLocation()">
@@ -53,19 +55,16 @@
             }
         </select>
 
-        <!-- Hidden boolean that controller checks -->
         <input type="hidden" asp-for="CreateNewLocation" id="createNewLocationFlag" />
 
         <!-- New Location Fields -->
         <div id="newLocationFields" style="display:none; flex-direction:column; gap:10px;">
-
+            <span asp-validation-for="NewLocationName" style="color:red; font-weight:600;"></span>
             <input asp-for="NewLocationName" placeholder="New Location Name"
                    style="padding:12px; border-radius:25px; border:1px solid #ccc;" />
 
-            <textarea asp-for="NewLocationDescription" rows="3"
-                      placeholder="Location Description"
+            <textarea asp-for="NewLocationDescription" rows="3" placeholder="Location Description"
                       style="padding:12px; border-radius:15px; border:1px solid #ccc;"></textarea>
-
         </div>
 
         <button type="submit"
@@ -93,3 +92,7 @@
 
     toggleNewLocation();
 </script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

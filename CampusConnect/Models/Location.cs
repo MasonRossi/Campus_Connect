@@ -10,7 +10,7 @@ namespace CampusConnect.Models
         [Required]
         public string Name { get; set; }
 
-        public string Description { get; set; }
+        public string? Description { get; set; } = "";
 
         // Optional: navigation to events at this location
         public ICollection<Event> Events { get; set; }

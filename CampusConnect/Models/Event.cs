@@ -13,11 +13,10 @@ namespace CampusConnect.Models
         [Required]
         public string Title { get; set; }
 
-        [Required]
-        public string Description { get; set; }
+        public string? Description { get; set; } = "";
 
         [Required]
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
 
         [Required]
         public string Category { get; set; }

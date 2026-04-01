@@ -9,22 +9,25 @@ namespace CampusConnect.viewModels
     // Event fields
     public string? EventId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Must enter a Title")]
         public string Title { get; set; }
-        [Required]
-        public string Description { get; set; }
-        [Required]
+        public string? Description { get; set; }
+        [Required(ErrorMessage = "Must enter a Date")]
         public DateTime Date { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Must enter a Category")]
         public string Category { get; set; }
 
         // Existing location selection
-        public string? SelectedLocationId { get; set; }
+        [Required(ErrorMessage = "Must enter a location")]
+        public string SelectedLocationId { get; set; }
         public List<Location> Locations { get; set; } = new();
         // New location fields
         public bool CreateNewLocation { get; set; }
-        public string? NewLocationName { get; set; }
-        public string? NewLocationDescription { get; set; }
+        [Required(ErrorMessage = "Must enter a name for you new location")]
+        public string NewLocationName { get; set; }
+        public string? NewLocationDescription { get; set; } = "";
+    
+    
     }
 }
 
